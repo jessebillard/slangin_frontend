@@ -3,12 +3,16 @@ import { Form } from 'semantic-ui-react'
 import { Container, Header } from 'semantic-ui-react'
 
 class NewSlangForm extends React.Component {
+    
+    //component state will potentially handle the form data...unless you want to try and use redux form...do that lab to help you
     // constructor() {
     //     super()
     //     this.state = {
 
     //     }
     // }
+
+    
 
     render() {
         const regionOptions = [

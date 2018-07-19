@@ -7,7 +7,10 @@ class SlangContainer extends React.Component {
 
     render() {
         return (
-            <div>aye</div>
+            <div>
+                {/* header of the selected region */}
+                {/* render out SlangTitleCards for each saying of that region */}
+            </div>
         )
     }
 }
