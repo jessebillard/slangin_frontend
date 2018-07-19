@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import AddSlangButton from './components/AddSlangButton';
 import NewSlangForm from './containers/NewSlangForm';
 import SlangDetailsCard from './components/SlangDetailsCard';
+import SlangTitleCard from './components/SlangTitleCard';
 
 class App extends Component {
   render() {
@@ -19,7 +20,8 @@ class App extends Component {
         {/* <br /> */}
         {/* <NewSlangForm /> */}
         <br />
-        <SlangDetailsCard />
+        {/* <SlangDetailsCard /> */}
+        <SlangTitleCard />
       </div>
     );
   }
