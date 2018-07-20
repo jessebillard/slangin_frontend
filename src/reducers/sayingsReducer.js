@@ -17,6 +17,11 @@ export default (state = {
                 ...state,
                 regions: action.payload,
             }
+        case 'SELECTED_SAYING':
+            return {
+                ...state,
+                selectedSaying: action.saying
+            }
         default:
             return state
     }
