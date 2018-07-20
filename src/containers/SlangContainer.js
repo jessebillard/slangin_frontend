@@ -18,5 +18,4 @@ class SlangContainer extends React.Component {
 export default SlangContainer
 
 // SlangContainer will be connected to redux
-    // mapStateToProps so that whatever region is selected can be fetched from backend
-    //
+    // mapStateToProps so that you can iterate through the selected region's sayings, making titleCards for each
