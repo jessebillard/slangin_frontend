@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SlangTitleCard from '../components/SlangTitleCard';
+// import SlangTitleCard from '../components/SlangTitleCard';
+import SlangList from '../components/SlangList';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SlangDetailsCard from '../components/SlangDetailsCard';
 
 
 class SlangContainer extends React.Component {
@@ -12,12 +15,13 @@ class SlangContainer extends React.Component {
         console.log(this.props)
         return (
             <div>
-                <h1>What they're saying in the {this.props.region} region</h1>
-                {/* render out SlangTitleCards for each saying of that region */}
-                {this.props.sayings.map(saying => 
-                    <SlangTitleCard key={saying.id} saying={saying} />
-                )}
-            </div>
+                <Switch>
+                    <Route path={`/regions/${this.props.region}/:sayingId`} component={SlangDetailsCard} />
+                    <Route path={`/regions/${this.props.region}`} render={() => {
+                        return <SlangList region={this.props.region} sayings={this.props.sayings} />
+                    }} />
+                </Switch>                
+            </div>            
         )
     }
 }

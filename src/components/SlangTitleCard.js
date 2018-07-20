@@ -12,4 +12,6 @@ const SlangTitleCard = ({ saying }) => {
     )
 }
 
+//when this card is clicked, dispatch an action that will update the state's selectedSaying
+
 export default SlangTitleCard

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
@@ -8,8 +8,7 @@ import NavBar from './components/NavBar';
 import AddSlangButton from './components/AddSlangButton';
 import NewSlangForm from './containers/NewSlangForm';
 import SlangContainer from './containers/SlangContainer'
-import SlangDetailsCard from './components/SlangDetailsCard';
-import SlangTitleCard from './components/SlangTitleCard';
+
 
 class App extends Component {
   render() {
@@ -18,9 +17,11 @@ class App extends Component {
           <React.Fragment>            
               <div id="main">
                   <NavBar />
-                  <Route exact path="/" component={HomePage} />
-                  <Route exact path="/newslang" component={NewSlangForm} />
-                  <Route exact path={`/regions/${this.props.region}`} component={SlangContainer} />
+                  <Switch>
+                    <Route path="/regions" component={SlangContainer} />
+                    <Route path="/newslang" component={NewSlangForm} />
+                    <Route path="/" component={HomePage} />
+                  </Switch>
                   <AddSlangButton />
               </div>            
           </React.Fragment>

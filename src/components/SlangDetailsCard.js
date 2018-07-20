@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { Card, Button } from 'semantic-ui-react';
 
 const SlangDetailsCard = () => {
+    // debugger;
     return (
         <div>
             <Card>
@@ -18,4 +20,10 @@ const SlangDetailsCard = () => {
     )
 }
 
-export default SlangDetailsCard
+const mapStateToProps = (state) => {
+    return {
+        saying: state.selectedSaying
+    }
+}
+
+export default connect(mapStateToProps)(SlangDetailsCard)
