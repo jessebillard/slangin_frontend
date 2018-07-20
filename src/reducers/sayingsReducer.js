@@ -1,15 +1,22 @@
 export default (state = {
-    sayings: [],
+    regions: [],
     selectedRegion: '',
+    sayings: [],
     selectedSaying: ''
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
+            const region = state.regions.find(region => region.name === action.region.toLowerCase())
             return {
                 ...state,
-                selectedRegion: action.region
+                sayings: region.sayings,
+                selectedRegion: region.name
             }
-            // debugger;
+        case 'GET_REGIONS':
+            return {
+                ...state,
+                regions: action.payload,
+            }
         default:
             return state
     }
