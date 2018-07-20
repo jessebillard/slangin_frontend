@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { getSayings } from '../actions/getSayings'
@@ -21,10 +22,18 @@ class HomePage extends React.Component {
             <div>
                 <h1>Slangin'</h1>
                 <br/>
-                <Button onClick={this.handleClick} content='Western' primary />
-                <Button onClick={this.handleClick} content='Midwest' primary />
-                <Button onClick={this.handleClick} content='Southern' primary />
-                <Button onClick={this.handleClick} content='Northeast' primary />
+                <Link to="/regions/western" >
+                    <Button onClick={this.handleClick} content='Western' primary />            
+                </Link>
+                <Link to="/regions/midwest" >
+                    <Button onClick={this.handleClick} content='Midwest' primary />                
+                </Link>
+                <Link to="/regions/southern" >
+                    <Button onClick={this.handleClick} content='Southern' primary />                
+                </Link>
+                <Link to="/regions/northeast" >
+                    <Button onClick={this.handleClick} content='Northeast' primary />                
+                </Link>
             </div>
         )
     }
