@@ -12,11 +12,11 @@ class SlangContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div>
                 <Switch>
-                    <Route path={`/regions/${this.props.region}/:sayingId`} component={SlangDetailsCard} />
+                    {/* <Route path={'/slang/:sayingId'} component={SlangDetailsCard} /> */}
                     <Route path={`/regions/${this.props.region}`} render={() => {
                         return <SlangList region={this.props.region} sayings={this.props.sayings} />
                     }} />

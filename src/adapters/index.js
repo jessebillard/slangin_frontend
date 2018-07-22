@@ -6,7 +6,15 @@ export class SayingsAdapter {
         return fetch(`${baseURL}/regions`).then(resp => resp.json())
     }
 
-    // static getRegionSayings(region) {
-    //     return fetch(`${baseURL}`)
-    // }
+    static createSaying(data) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        return fetch(`${baseURL}/sayings`, options).then(resp => resp.json())
+    }
+
 }

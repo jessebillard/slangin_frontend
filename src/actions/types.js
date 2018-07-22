@@ -1,2 +1,4 @@
 export const GET_SAYINGS = "GET_SAYINGS"
 export const SELECTED_SAYING = "SELECTED_SAYING"
+export const CREATE_SAYING = "CREATE_SAYING"
+export const GET_REGIONS = "GET_REGIONS"

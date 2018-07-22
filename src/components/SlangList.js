@@ -7,7 +7,7 @@ const SlangList = ({region, sayings}) => {
         <div>
             <h1>What they're saying in the {region} region</h1>
                 {sayings.map(saying => 
-                    <Link to={`/regions/${region}/${saying.id}`} key={saying.id} >
+                    <Link to={`/slang/${saying.id}`} key={saying.id} >
                         <SlangTitleCard key={saying.id} saying={saying} />
                     </Link>
                 )}

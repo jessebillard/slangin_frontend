@@ -22,6 +22,11 @@ export default (state = {
                 ...state,
                 selectedSaying: action.saying
             }
+        case 'CREATE_SAYING':
+            return {
+                ...state,
+                sayings: [...state.sayings, action.saying]
+            }
         default:
             return state
     }
