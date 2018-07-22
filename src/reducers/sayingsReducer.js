@@ -27,6 +27,15 @@ export default (state = {
                 ...state,
                 sayings: [...state.sayings, action.saying]
             }
+        case 'ADD_VOTE_TO_SAYING':
+            // debugger;
+            const saying = state.sayings.find(saying => saying.id === action.saying.id)
+            const index = state.sayings.indexOf(saying)  
+            const sayingsCopyOldSayingRemoved = [...state.sayings.slice(0, index), ...state.sayings.slice(index + 1)]
+            return {
+                ...state,
+                sayings: [...sayingsCopyOldSayingRemoved, action.saying]
+            }
         default:
             return state
     }
