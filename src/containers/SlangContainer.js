@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import SlangTitleCard from '../components/SlangTitleCard';
 import SlangList from '../components/SlangList';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SlangDetailsCard from '../components/SlangDetailsCard';
+import { Route, Switch } from 'react-router-dom';
+// import SlangDetailsCard from '../components/SlangDetailsCard';
 
 
 class SlangContainer extends React.Component {
@@ -12,7 +12,7 @@ class SlangContainer extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         return (
             <div>
                 <Switch>

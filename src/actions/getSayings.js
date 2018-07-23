@@ -33,7 +33,7 @@ export const selectSaying = (saying) => {
 
 export const createSaying = (saying) => {
     return dispatch => {
-        SayingsAdapter.createSaying(saying)
+        return SayingsAdapter.createSaying(saying)
             .then(saying => {
                 dispatch({
                     type: CREATE_SAYING,

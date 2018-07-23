@@ -16,7 +16,7 @@ class SlangDetailsCard extends React.Component {
 
     render() {
         const { saying } = this.props
-        console.log(saying)
+        // console.log(saying)
         return (
             <div>
                 <Card>

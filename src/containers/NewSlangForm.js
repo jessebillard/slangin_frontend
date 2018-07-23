@@ -1,10 +1,13 @@
 import React from 'react';
-import { Redirect } from 'react-router'
+// import { Redirect } from 'react-router'
 import { Form } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { createSaying } from '../actions/getSayings'
-import { Link } from 'react-router-dom';
+// import Clip from '../components/clip';
+// import { Microphone } from '../components/microphone';
+// import { Link } from 'react-router-dom';
+// import { ReactMic } from 'react-mic';
 
 // TODO: 
     // connect component to redux
@@ -14,21 +17,29 @@ import { Link } from 'react-router-dom';
 class NewSlangForm extends React.Component {
     
     //component state will potentially handle the form data...unless you want to try and use redux form...do that lab to help you
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             title: '',
             description: '',
-            region: ''
+            region: ''              
         }
     }
 
     handleChange = (e) => {
+        // debugger;
+        // console.log(e.target)
         if (e.target.tagName === 'DIV') {
+            // console.log(e.target.firstElementChild.innerText.toLowerCase())
             this.setState({
                 region: e.target.firstElementChild.innerText.toLowerCase()
             })            
-        } else {
+        } else if (e.target.tagName === 'SPAN') {
+            this.setState({
+                region: e.target.innerText.toLowerCase()
+            })
+        } 
+        else {
             this.setState({
                 [e.target.name]: e.target.value
             })
@@ -38,10 +49,14 @@ class NewSlangForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.createSaying(this.state)
+            .then(() => {
+                this.props.history.push(`/regions/${this.state.region}`)
+            })
     }
 
+
     render() {
-        console.log(this.state)
+        // console.log(this.state)        
         const regionOptions = [
             {text: "Western", value: "Western"}, 
             {text: "Midwest", value: "Midwest"}, 
@@ -55,16 +70,11 @@ class NewSlangForm extends React.Component {
                     <Form onSubmit={this.handleSubmit} >
                         <Form.Group widths="equal">
                             <Form.Input onChange={this.handleChange} value={this.state.title} name='title' label='Title' placeholder='Title'/>
-                            <Form.Select onChange={this.handleChange} name="region" label="Region" placeholder="Select Region" options={regionOptions} />
+                            <Form.Select onChange={this.handleChange} label="Region" placeholder="Select Region" options={regionOptions} />
                         </Form.Group>
                         <Form.TextArea onChange={this.handleChange} value={this.state.description} name="description" label='Description' placeholder='Description in context...' />
-                        <h4>Record</h4>
-                        {/* will want to make this button turn red when recording */}
-                        <Form.Button circular icon="circle outline" />
-                        {/* for some reason it links properly, but the post request, slang creation process won't happen */}
-                        {/* <Link to={`/regions/${this.state.region}`}> */}
-                            <Form.Button>Submit</Form.Button>                        
-                        {/* </Link> */}
+                        <h4>Record</h4>                        
+                        <Form.Button>Submit</Form.Button>                                                
                     </Form>
                 </Container>
             </div>

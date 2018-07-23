@@ -22,10 +22,13 @@ export default (state = {
                 ...state,
                 selectedSaying: action.saying
             }
-        case 'CREATE_SAYING':
+        case 'CREATE_SAYING':            
+            const currentRegion = state.regions.find(region => region.name === action.saying.region.name)    
+            // debugger;        
             return {
                 ...state,
-                sayings: [...state.sayings, action.saying]
+                sayings: [...currentRegion.sayings, action.saying],
+                selectedRegion: action.saying.region.name
             }
         case 'ADD_VOTE_TO_SAYING':
             // debugger;
