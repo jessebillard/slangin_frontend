@@ -5,6 +5,8 @@ import { CREATE_SAYING } from './types'
 import { GET_REGIONS } from './types'
 import { ADD_VOTE_TO_SAYING } from './types'
 import { ADD_SAYING_RECORDING } from './types'
+import { SET_CURRENT_RECORDING } from './types'
+import Pizzicato from 'pizzicato'
 
 export const getAllRegions = () => {
     return dispatch => {
@@ -52,6 +54,21 @@ export const addVoteToSaying = (saying) => {
                     type: ADD_VOTE_TO_SAYING,
                     saying
                 })
+            })
+    }
+}
+
+export const getSayingRecording = (saying) => {
+    return dispatch => {
+        SayingsAdapter.getRecording(saying.id)
+            .then(audioURL => {
+                const sound = new Pizzicato.Sound({
+                    source: 'file',
+                    options: { path: [audioURL] }
+                }, () => dispatch({
+                    type: SET_CURRENT_RECORDING,
+                    sound
+                }))
             })
     }
 }

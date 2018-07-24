@@ -8,7 +8,8 @@ export default (state = {
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
-            const region = state.regions.find(region => region.name === action.region.toLowerCase())
+        const region = state.regions.find(region => region.name === action.region.toLowerCase())
+        // debugger;
             return {
                 ...state,
                 sayings: region.sayings,
@@ -32,6 +33,12 @@ export default (state = {
                 sayings: [...currentRegion.sayings, action.saying],
                 selectedRegion: action.saying.region.name
             }
+        case 'SET_CURRENT_RECORDING': 
+            // debugger;
+            return {
+                ...state,
+                sound: action.sound
+            }
         case 'ADD_VOTE_TO_SAYING':
             // debugger;
             const saying = state.sayings.find(saying => saying.id === action.saying.id)
@@ -42,7 +49,7 @@ export default (state = {
                 sayings: [...sayingsCopyOldSayingRemoved, action.saying]
             }
         case 'ADD_SAYING_RECORDING':
-            debugger;
+            // debugger;
             return {
                 ...state,
                 currentBlob: action.recording.blob,

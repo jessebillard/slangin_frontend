@@ -50,45 +50,19 @@ class NewSlangForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        debugger;
-        this.props.createSaying(this.state)
+
+        // make a formData object out of the current state and currentBlob on props
+        const sayingData = new FormData()
+        sayingData.append("title", this.state.title)
+        sayingData.append("description", this.state.description)
+        sayingData.append("region", this.state.region)
+        sayingData.append("recording", this.props.blob)
+        // console.log(this.props.currentBlob)
+        // debugger;
+        this.props.createSaying(sayingData)
             .then(() => {
                 this.props.history.push(`/regions/${this.state.region}`)
             })
-    }
-
-    handleRec = (e) => {
-
-        if (navigator.mediaDevices.getUserMedia) {
-            let chunks = [];
-            const constraints = {audio: true, video: false}
-            console.log(this)
-            const onSuccess = function(stream) {
-                const mediaRecorder = new MediaRecorder(stream)
-
-                // handle for start button click
-                // if () {
-
-                // }
-
-                // handle for stop button click
-
-                // mediaRecorder.ondataavailable = function(e) {
-                //     chunks.push(e.data)
-                // }
-
-            }.bind(this)
-
-            const onError = function(error) {
-                alert('the following error occurred:' + error)
-            }
-
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(onSuccess, onError)
-
-        } else {
-            alert('getUserMedia is not supported on your browser!')
-        }
     }
 
     startRecording = () => {
@@ -144,7 +118,7 @@ class NewSlangForm extends React.Component {
                     record={this.state.record}
                     className="sound-wave"
                     onStop={this.onStop}
-                    strokeColor="#a174ad"
+                    strokeColor="#f48942"
                     nonstop='true'
                     duration={15}
                     />
