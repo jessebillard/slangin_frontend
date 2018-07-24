@@ -3,6 +3,8 @@ export default (state = {
     selectedRegion: '',
     sayings: [],
     selectedSaying: '',
+    currentBlob: '',
+    currentRecording: ''
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
@@ -41,6 +43,11 @@ export default (state = {
             }
         case 'ADD_SAYING_RECORDING':
             debugger;
+            return {
+                ...state,
+                currentBlob: action.recording.blob,
+                currentRecording: action.recording.sound
+            }
         default:
             return state
     }

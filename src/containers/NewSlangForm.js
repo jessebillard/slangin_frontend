@@ -112,6 +112,12 @@ class NewSlangForm extends React.Component {
         });
     }
 
+    playback = () => {
+        console.log(this.props.blob)
+        console.log(this.props.recording)
+        this.props.recording.play()
+    }
+
     render() {
         // console.log(this.state)        
         const regionOptions = [
@@ -146,6 +152,7 @@ class NewSlangForm extends React.Component {
                         <div id="buttons">
                             <button onClick={this.startRecording}className="record">Start</button>
                             <button onClick={this.stopRecording} className="stop">Stop</button>
+                            <button onClick={this.playback}>Playback</button>
                         </div>
                     </section>
                 </Container>
@@ -154,10 +161,11 @@ class NewSlangForm extends React.Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         region: state.selectedRegion
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        recording: state.currentRecording,
+        blob: state.currentBlob
+    }
+}
 
-export default connect(null, { createSaying, addSayingRecording })(NewSlangForm)
+export default connect(mapStateToProps, { createSaying, addSayingRecording })(NewSlangForm)
