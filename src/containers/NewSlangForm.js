@@ -1,13 +1,14 @@
 import React from 'react';
-// import { Redirect } from 'react-router'
 import { Form } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { createSaying } from '../actions/getSayings'
+import { createSaying } from '../actions/getSayings';
+import { addSayingRecording } from '../actions/getSayings';
+import Pizzicato from 'pizzicato'
 // import Clip from '../components/clip';
 // import { Microphone } from '../components/microphone';
 // import { Link } from 'react-router-dom';
-// import { ReactMic } from 'react-mic';
+import { ReactMic } from 'react-mic';
 
 // TODO: 
     // connect component to redux
@@ -22,7 +23,8 @@ class NewSlangForm extends React.Component {
         this.state = {
             title: '',
             description: '',
-            region: ''              
+            region: '',
+            record: false           
         }
     }
 
@@ -48,12 +50,67 @@ class NewSlangForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        debugger;
         this.props.createSaying(this.state)
             .then(() => {
                 this.props.history.push(`/regions/${this.state.region}`)
             })
     }
 
+    handleRec = (e) => {
+
+        if (navigator.mediaDevices.getUserMedia) {
+            let chunks = [];
+            const constraints = {audio: true, video: false}
+            console.log(this)
+            const onSuccess = function(stream) {
+                const mediaRecorder = new MediaRecorder(stream)
+
+                // handle for start button click
+                // if () {
+
+                // }
+
+                // handle for stop button click
+
+                // mediaRecorder.ondataavailable = function(e) {
+                //     chunks.push(e.data)
+                // }
+
+            }.bind(this)
+
+            const onError = function(error) {
+                alert('the following error occurred:' + error)
+            }
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(onSuccess, onError)
+
+        } else {
+            alert('getUserMedia is not supported on your browser!')
+        }
+    }
+
+    startRecording = () => {
+        this.setState({
+          record: !this.state.record
+        });
+      }
+    
+    stopRecording = () => {
+         this.setState({
+           record: false
+         });
+       }
+
+    onStop = (recordedBlob) =>  {
+        const sound = new Pizzicato.Sound({
+            source: 'file',
+            options: { path: [recordedBlob.blobURL] }
+        }, () => {
+            this.props.addSayingRecording({sound: sound, blob: recordedBlob.blob})
+        });
+    }
 
     render() {
         // console.log(this.state)        
@@ -73,9 +130,24 @@ class NewSlangForm extends React.Component {
                             <Form.Select onChange={this.handleChange} label="Region" placeholder="Select Region" options={regionOptions} />
                         </Form.Group>
                         <Form.TextArea onChange={this.handleChange} value={this.state.description} name="description" label='Description' placeholder='Description in context...' />
-                        <h4>Record</h4>                        
+                        <br />
                         <Form.Button>Submit</Form.Button>                                                
                     </Form>
+                    <h4>Record</h4>
+                    <ReactMic 
+                    record={this.state.record}
+                    className="sound-wave"
+                    onStop={this.onStop}
+                    strokeColor="#a174ad"
+                    nonstop='true'
+                    duration={15}
+                    />
+                    <section className="main-controls">
+                        <div id="buttons">
+                            <button onClick={this.startRecording}className="record">Start</button>
+                            <button onClick={this.stopRecording} className="stop">Stop</button>
+                        </div>
+                    </section>
                 </Container>
             </div>
         )
@@ -88,4 +160,4 @@ class NewSlangForm extends React.Component {
 //     }
 // }
 
-export default connect(null, { createSaying })(NewSlangForm)
+export default connect(null, { createSaying, addSayingRecording })(NewSlangForm)

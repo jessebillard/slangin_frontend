@@ -4,6 +4,7 @@ import { SayingsAdapter } from '../adapters/index'
 import { CREATE_SAYING } from './types'
 import { GET_REGIONS } from './types'
 import { ADD_VOTE_TO_SAYING } from './types'
+import { ADD_SAYING_RECORDING } from './types'
 
 export const getAllRegions = () => {
     return dispatch => {
@@ -52,5 +53,12 @@ export const addVoteToSaying = (saying) => {
                     saying
                 })
             })
+    }
+}
+
+export const addSayingRecording = (recording) => {
+    return {
+        type: ADD_SAYING_RECORDING,
+        recording
     }
 }

@@ -2,7 +2,7 @@ export default (state = {
     regions: [],
     selectedRegion: '',
     sayings: [],
-    selectedSaying: ''
+    selectedSaying: '',
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
@@ -39,6 +39,8 @@ export default (state = {
                 ...state,
                 sayings: [...sayingsCopyOldSayingRemoved, action.saying]
             }
+        case 'ADD_SAYING_RECORDING':
+            debugger;
         default:
             return state
     }
