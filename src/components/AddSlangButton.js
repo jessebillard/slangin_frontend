@@ -1,16 +1,23 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const AddSlangButton = () => {
-    return (
-        <div>
-            <h4>Add Slang</h4>
-            <Link to="/newslang">
-                <Button circular icon='plus' />            
-            </Link>
-        </div>
-    )
+const AddSlangButton = ({ location }) => {
+    // console.log(props)
+    if (location.pathname !== "/newslang") {
+        return (
+            <div>
+                <h4>Add Slang</h4>
+                <Link to="/newslang">
+                    <Button circular icon='plus' />            
+                </Link>
+            </div>
+        )
+    } else {
+        return (
+            <div></div>
+        )
+    }
 }
 
-export default AddSlangButton
+export default withRouter(AddSlangButton)
