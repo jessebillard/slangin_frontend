@@ -37,7 +37,11 @@ class NewSlangForm extends React.Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault()
+        // console.log(this.state)
+        // debugger;
+        // will I still need this preventDefault if the submit is coming from a button click and not the "onSubmit" event?
+        // apparently it works fine without it
+        // e.preventDefault()
 
         // make a formData object out of the current state and currentBlob on props
         const sayingData = new FormData()
@@ -53,12 +57,14 @@ class NewSlangForm extends React.Component {
     }
 
     startRecording = () => {
+        // debugger;
         this.setState({
           record: !this.state.record
         });
       }
     
     stopRecording = () => {
+        // debugger;
          this.setState({
            record: false
          });
@@ -74,6 +80,7 @@ class NewSlangForm extends React.Component {
     }
 
     playback = () => {
+        // debugger;
         this.props.recording.play()
     }
 
@@ -88,31 +95,81 @@ class NewSlangForm extends React.Component {
             <div className="margin-top">
                 <Container>
                     <Header as='h2'>Make Some Slang</Header>
-                    <Form onSubmit={this.handleSubmit} >
+                    <Form>
                         <Form.Group widths="equal">
-                            <Form.Input onChange={this.handleChange} value={this.state.title} name='title' label='Title' placeholder='Title'/>
-                            <Form.Select onChange={this.handleChange} label="Region" placeholder="Select Region" options={regionOptions} />
+                            <Form.Input onChange={this.handleChange} 
+                                value={this.state.title} 
+                                name='title' 
+                                label='Title' 
+                                placeholder='Title'
+                            />
+                            <Form.Select onChange={this.handleChange} 
+                                label="Region" 
+                                placeholder="Select Region" 
+                                options={regionOptions} 
+                            />
                         </Form.Group>
-                        <Form.TextArea onChange={this.handleChange} value={this.state.description} name="description" label='Description' placeholder='Description in context...' />
+                        <Form.TextArea onChange={this.handleChange} 
+                            value={this.state.description} 
+                            name="description" 
+                            label='Description' 
+                            placeholder='Description in context...' 
+                        />
                         <br />
-                        <Form.Button>Submit</Form.Button>                                                
+                        <h4>Record</h4>
+                        <br />
+                        <ReactMic 
+                            record={this.state.record}
+                            className="sound-wave"
+                            onStop={this.onStop}
+                            strokeColor="#f48942"
+                            nonstop='true'
+                            duration={15}
+                        />
+                        <br/>
+                        <Form.Group widths="equal">
+                            <Form.Button
+                                size="large"
+                                basic
+                                positive
+                                circular 
+                                onClick={this.startRecording}
+                                content="Start" 
+                            />
+                            <Form.Button 
+                                size="large"
+                                basic
+                                negative
+                                circular
+                                onClick={this.stopRecording}
+                                content="Stop" 
+                            />
+                            <Form.Button 
+                                size="large"
+                                basic 
+                                color='blue'
+                                circular
+                                onClick={this.playback}
+                                content="Playback" 
+                            />
+
+                        </Form.Group>
+                        {/* <Form.Field 
+                            onClick={this.startRecording}
+                            control="input" 
+                            type="button" 
+                            label="Start"
+                        />  */}
+                        <br/>
+                        <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>                                                
                     </Form>
-                    <h4>Record</h4>
-                    <ReactMic 
-                    record={this.state.record}
-                    className="sound-wave"
-                    onStop={this.onStop}
-                    strokeColor="#f48942"
-                    nonstop='true'
-                    duration={15}
-                    />
-                    <section className="main-controls">
+                    {/* <section className="main-controls">
                         <div id="buttons">
-                            <button onClick={this.startRecording}className="record">Start</button>
+                            <button onClick={this.startRecording} className="record">Start</button>
                             <button onClick={this.stopRecording} className="stop">Stop</button>
                             <button onClick={this.playback}>Playback</button>
                         </div>
-                    </section>
+                    </section> */}
                 </Container>
             </div>
         )
