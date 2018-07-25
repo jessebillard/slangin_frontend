@@ -30,7 +30,6 @@ export class SayingsAdapter {
     }
 
     static getRecording(id) {
-        // down the line, won't be converting this recording response to json...just linking them up for now
         return fetch(`${baseURL}/sayings/${id}`)
             .then(resp => resp.blob())
             .then(audioBlob => {

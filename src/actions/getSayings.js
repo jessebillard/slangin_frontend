@@ -1,11 +1,11 @@
-import { GET_SAYINGS } from './types'
-import { SELECTED_SAYING } from './types'
+import { GET_SAYINGS, SELECTED_SAYING, CREATE_SAYING, GET_REGIONS, ADD_VOTE_TO_SAYING, ADD_SAYING_RECORDING, SET_CURRENT_RECORDING } from './types'
+// import { SELECTED_SAYING } from './types'
+// import { CREATE_SAYING } from './types'
+// import { GET_REGIONS } from './types'
+// import { ADD_VOTE_TO_SAYING } from './types'
+// import { ADD_SAYING_RECORDING } from './types'
+// import { SET_CURRENT_RECORDING } from './types'
 import { SayingsAdapter } from '../adapters/index'
-import { CREATE_SAYING } from './types'
-import { GET_REGIONS } from './types'
-import { ADD_VOTE_TO_SAYING } from './types'
-import { ADD_SAYING_RECORDING } from './types'
-import { SET_CURRENT_RECORDING } from './types'
 import Pizzicato from 'pizzicato'
 
 export const getAllRegions = () => {

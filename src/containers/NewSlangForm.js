@@ -2,22 +2,12 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { createSaying } from '../actions/getSayings';
-import { addSayingRecording } from '../actions/getSayings';
+import { createSaying, addSayingRecording } from '../actions/getSayings';
 import Pizzicato from 'pizzicato'
-// import Clip from '../components/clip';
-// import { Microphone } from '../components/microphone';
-// import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
-
-// TODO: 
-    // connect component to redux
-    // handle change events to input and store them to component state
-    // handle submit event and dispatch action to reducer with the form data
 
 class NewSlangForm extends React.Component {
     
-    //component state will potentially handle the form data...unless you want to try and use redux form...do that lab to help you
     constructor(props) {
         super(props)
         this.state = {
@@ -29,10 +19,8 @@ class NewSlangForm extends React.Component {
     }
 
     handleChange = (e) => {
-        // debugger;
-        // console.log(e.target)
+
         if (e.target.tagName === 'DIV') {
-            // console.log(e.target.firstElementChild.innerText.toLowerCase())
             this.setState({
                 region: e.target.firstElementChild.innerText.toLowerCase()
             })            
@@ -57,8 +45,7 @@ class NewSlangForm extends React.Component {
         sayingData.append("description", this.state.description)
         sayingData.append("region", this.state.region)
         sayingData.append("recording", this.props.blob)
-        // console.log(this.props.currentBlob)
-        // debugger;
+
         this.props.createSaying(sayingData)
             .then(() => {
                 this.props.history.push(`/regions/${this.state.region}`)
@@ -87,13 +74,10 @@ class NewSlangForm extends React.Component {
     }
 
     playback = () => {
-        console.log(this.props.blob)
-        console.log(this.props.recording)
         this.props.recording.play()
     }
 
-    render() {
-        // console.log(this.state)        
+    render() {   
         const regionOptions = [
             {text: "Western", value: "Western"}, 
             {text: "Midwest", value: "Midwest"}, 

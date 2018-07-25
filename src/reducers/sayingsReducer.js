@@ -8,8 +8,7 @@ export default (state = {
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
-        const region = state.regions.find(region => region.name === action.region.toLowerCase())
-        // debugger;
+        const region = state.regions.find(region => region.name === action.region.toLowerCase())        
             return {
                 ...state,
                 sayings: region.sayings,
@@ -26,21 +25,18 @@ export default (state = {
                 selectedSaying: action.saying
             }
         case 'CREATE_SAYING':            
-            const currentRegion = state.regions.find(region => region.name === action.saying.region.name)    
-            // debugger;        
+            const currentRegion = state.regions.find(region => region.name === action.saying.region.name)                
             return {
                 ...state,
                 sayings: [...currentRegion.sayings, action.saying],
                 selectedRegion: action.saying.region.name
             }
-        case 'SET_CURRENT_RECORDING': 
-            // debugger;
+        case 'SET_CURRENT_RECORDING':             
             return {
                 ...state,
                 sound: action.sound
             }
-        case 'ADD_VOTE_TO_SAYING':
-            // debugger;
+        case 'ADD_VOTE_TO_SAYING':            
             const saying = state.sayings.find(saying => saying.id === action.saying.id)
             const index = state.sayings.indexOf(saying)  
             const sayingsCopyOldSayingRemoved = [...state.sayings.slice(0, index), ...state.sayings.slice(index + 1)]
@@ -48,8 +44,7 @@ export default (state = {
                 ...state,
                 sayings: [...sayingsCopyOldSayingRemoved, action.saying]
             }
-        case 'ADD_SAYING_RECORDING':
-            // debugger;
+        case 'ADD_SAYING_RECORDING':            
             return {
                 ...state,
                 currentBlob: action.recording.blob,
