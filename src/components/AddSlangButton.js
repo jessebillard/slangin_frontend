@@ -6,7 +6,7 @@ const AddSlangButton = ({ location }) => {
     // console.log(props)
     if (location.pathname !== "/newslang") {
         return (
-            <div>
+            <div id="slang-button">
                 <h4>Add Slang</h4>
                 <Link to="/newslang">
                     <Button circular icon='plus' />            

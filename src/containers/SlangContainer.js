@@ -7,12 +7,12 @@ import { Route, Switch } from 'react-router-dom';
 
 
 class SlangContainer extends React.Component {
-    constructor() {
-        super()
-    }
+    // constructor() {
+    //     super()
+    // }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div>
                 <Switch>

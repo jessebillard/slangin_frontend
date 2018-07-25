@@ -35,7 +35,7 @@ class SlangDetailsCard extends React.Component {
         const { saying } = this.props
         // console.log(saying)
         return (
-            <div>
+            <div className="margin-top" id="slang-details-card">
                 <Card>
                     <Card.Content header={`"${saying.title}"`} />
                     <Card.Content description={saying.description} />

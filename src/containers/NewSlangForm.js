@@ -101,7 +101,7 @@ class NewSlangForm extends React.Component {
             {text: "Northeast", value: "Northeast"}
         ]
         return (
-            <div>
+            <div className="margin-top">
                 <Container>
                     <Header as='h2'>Make Some Slang</Header>
                     <Form onSubmit={this.handleSubmit} >
