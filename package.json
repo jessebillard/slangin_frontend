@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "deque-pattern-library": "^2.4.5",
     "pizzicato": "^0.6.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
