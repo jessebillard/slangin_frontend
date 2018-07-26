@@ -4,7 +4,7 @@ export default (state = {
     sayings: [],
     selectedSaying: '',
     currentBlob: '',
-    currentRecording: ''
+    currentRecording: '',
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':

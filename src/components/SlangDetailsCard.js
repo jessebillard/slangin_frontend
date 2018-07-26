@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Card, Button, Modal, Icon, Header } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
@@ -11,7 +12,7 @@ class SlangDetailsCard extends React.Component {
         super()
 
         this.state = {
-            modalOpen: false
+            modalOpen: false            
         }
     }
 
@@ -36,8 +37,29 @@ class SlangDetailsCard extends React.Component {
         this.props.recording.play()
     }
 
+    onBackClick = () => {
+        this.props.history.goBack()
+    }
+
+    btnColor = () => {
+        switch (this.props.saying.region.name) {
+            case "western":
+                return "orange"
+            case "midwest":
+                return "olive"
+            case "southern":
+                return "teal"
+            case "northeast":
+                return "violet"
+            default:
+                return ''
+        }
+    }
+
     render() {
-        const { saying } = this.props        
+        console.log(this.props)
+        const { saying } = this.props
+            
         return (
             <div className="margin-top" id="slang-details-card">
                 {/* <Transition.Group animation="fade" duration={700}> */}
@@ -60,17 +82,18 @@ class SlangDetailsCard extends React.Component {
                                         circular 
                                         content="I say this too!" 
                                     /> }
+                                    dimmer={"blurring"}
                                     open={this.state.modalOpen}
                                     onClose={this.handleClose}
                                     basic
-                                    size="tiny"               
+                                    size="tiny"                                                   
                                 >
-                                 <Header id="modal" icon='browser' content="Slangin'" />
-                                    <Modal.Content>
+                                 <Header id="header" icon='browser' content="Slangin'" />
+                                    <Modal.Content id="modal-content">
                                         <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
                                     </Modal.Content>
                                     <Modal.Actions>
-                                    <Button color='green' onClick={this.handleClose} inverted>
+                                    <Button id="modal-btn" color='green' onClick={this.handleClose} inverted>
                                         <Icon name='checkmark' /> Sick Yeah!
                                     </Button>
                                     </Modal.Actions>   
@@ -80,6 +103,11 @@ class SlangDetailsCard extends React.Component {
                         </Card.Content>
                     </Card>
                 {/* </Transition.Group> */}
+                <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
+                        {saying.region.name}
+                    </Button>                                         
+                    region...
+                </h3>
             </div>
         )
 

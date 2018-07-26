@@ -3,7 +3,7 @@ import SlangTitleCard from './SlangTitleCard';
 import { Link } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react'
 
-const SlangList = ({region, sayings}) => {
+const SlangList = (props) => {
 
     // const columns = _.times(4, i => (
     //     <Grid.Column key={i}>
@@ -21,12 +21,21 @@ const SlangList = ({region, sayings}) => {
 
     // console.log(titleCards)
 
+    const sortedSayings = () => {
+        // console.log(props.sayings)
+        const sayingsCopy = [...props.sayings]
+        const newSayings = sayingsCopy.sort((a, b) => {
+           return a.votes - b.votes
+        })
+        return newSayings.reverse()
+    }
+
     return (
         <div className="margin-top">
-            <h1>What they're saying in the {region} region</h1>
+            <h1>What they're saying in the {props.region} region</h1>
                 <Grid columns={4} divided >
                     <Grid.Row>
-                        {sayings.map(saying => 
+                        {sortedSayings().map(saying => 
                         <Grid.Column key={saying.id}>
                             <Link to={`/slang/${saying.id}`} key={saying.id} >
                                 <SlangTitleCard key={saying.id} saying={saying} />

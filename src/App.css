@@ -15,9 +15,18 @@
   width: 25%;
 }
 
-#modal {
+#header {
   text-align: center;
-  margin: 1rem auto;
+  width: 25%;
+  /* margin: 1rem auto; */
   margin-top: 250px;
-  margin-left: 150px;
+  margin-left: 350px;
+}
+
+#modal-content {
+  margin-left: 200px;
+}
+
+#modal-btn {
+  margin-left: 200px;
 }
