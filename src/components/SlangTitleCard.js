@@ -5,8 +5,31 @@ import { selectSaying } from '../actions/getSayings';
 
 class SlangTitleCard extends React.Component {
 
+    constructor() {
+        super()
+
+        this.state = {
+            mouseHover: false
+        }
+
+    }
+
     handleClick = () => {
         this.props.selectSaying(this.props.saying)
+    }
+
+    raiseCard = () => {
+        // console.log("enter")
+        this.setState({
+            mouseHover: !this.state.mouseHover
+        })
+    }
+
+    lowerCard = () => {
+        // console.log("leave")
+        this.setState({
+            mouseHover: !this.state.mouseHover
+        })
     }
 
     render() {
@@ -25,11 +48,11 @@ class SlangTitleCard extends React.Component {
                 default:
                     return "blue"
             }
-
         }
+
         return (
-            <div onClick={this.handleClick}>
-                <Card color={color()}>
+            <div onMouseEnter={this.raiseCard} onMouseLeave={this.lowerCard} onClick={this.handleClick}>
+                <Card raised={this.state.mouseHover} color={color()}>
                     <Card.Content textAlign="left" description={`${saying.votes} people are saying...`} />
                     <Card.Content content={`"${saying.title}"`}/>
                 </Card>

@@ -1,4 +1,12 @@
-import { GET_SAYINGS, SELECTED_SAYING, CREATE_SAYING, GET_REGIONS, ADD_VOTE_TO_SAYING, ADD_SAYING_RECORDING, SET_CURRENT_RECORDING } from './types'
+import { GET_SAYINGS, 
+    SELECTED_SAYING, 
+    CREATE_SAYING, 
+    GET_REGIONS, 
+    ADD_VOTE_TO_SAYING, 
+    ADD_SAYING_RECORDING, 
+    SET_CURRENT_RECORDING,
+    GET_TAGS 
+} from './types'
 // import { SELECTED_SAYING } from './types'
 // import { CREATE_SAYING } from './types'
 // import { GET_REGIONS } from './types'
@@ -77,5 +85,17 @@ export const addSayingRecording = (recording) => {
     return {
         type: ADD_SAYING_RECORDING,
         recording
+    }
+}
+
+export const getSayingTags = (saying) => {
+    return dispatch => {
+        SayingsAdapter.getTags(saying)
+            .then(tags => {
+                dispatch({
+                    type: GET_TAGS,
+                    tags
+                })
+            })
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Button, Modal, Icon, Header } from 'semantic-ui-react';
+import { Card, Button, Modal, Icon, Header, Accordion, Label } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
-import { addVoteToSaying, getSayingRecording } from '../actions/getSayings';
+import { addVoteToSaying, getSayingRecording, getSayingTags } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
 
@@ -28,7 +28,10 @@ class SlangDetailsCard extends React.Component {
         })
     }
 
-    componentDidMount() {        
+    componentDidMount() {   
+        // fetch the tags from the backend!  
+        this.props.getSayingTags(this.props.saying.title)
+
         this.props.getSayingRecording(this.props.saying)
     }
 
@@ -36,9 +39,28 @@ class SlangDetailsCard extends React.Component {
         this.props.recording.play()
     }
 
+    tagButtons = () => {
+        //make buttons for each tag
+        // console.log(this.props.tags)
+        this.props.tags.map(tag => {
+            return <Button content={tag.name}/>
+        })
+    }
+
     render() {
         const { saying } = this.props   
-        console.log(this.props.saying)     
+        console.log(this.props.tags)  
+        
+        // const panel = {
+        //     key: "panel",
+        //     title: {
+        //         content: <Label content="See location tags" />
+        //     },
+        //     content: {
+        //         content: this.tagButtons()
+        //     }
+        // }
+
         return (
             <div className="margin-top" id="slang-details-card">
                 {/* <Transition.Group animation="fade" duration={700}> */}
@@ -76,10 +98,12 @@ class SlangDetailsCard extends React.Component {
                                     </Button>
                                     </Modal.Actions>   
                                 </Modal>                    
-                                 
                             </div>
                         </Card.Content>
                     </Card>
+                    {this.props.tags.map(tag => {
+                        return <Button key={tag.id} content={tag.name}/>
+                    })}
                 {/* </Transition.Group> */}
             </div>
         )
@@ -92,8 +116,9 @@ class SlangDetailsCard extends React.Component {
 const mapStateToProps = (state) => {
     return {
         saying: state.selectedSaying,
-        recording: state.sound
+        recording: state.sound,
+        tags: state.currentTags
     }
 }
 
-export default connect(mapStateToProps, { addVoteToSaying, getSayingRecording } )(SlangDetailsCard)
+export default connect(mapStateToProps, { addVoteToSaying, getSayingRecording, getSayingTags } )(SlangDetailsCard)

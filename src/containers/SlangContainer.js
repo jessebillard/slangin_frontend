@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import SlangList from '../components/SlangList';
 
-
-
 class SlangContainer extends React.Component {
 
     render() {
