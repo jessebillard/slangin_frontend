@@ -37,7 +37,8 @@ class SlangDetailsCard extends React.Component {
     }
 
     render() {
-        const { saying } = this.props        
+        const { saying } = this.props   
+        console.log(this.props.saying)     
         return (
             <div className="margin-top" id="slang-details-card">
                 {/* <Transition.Group animation="fade" duration={700}> */}
