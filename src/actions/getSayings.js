@@ -5,7 +5,8 @@ import { GET_SAYINGS,
     ADD_VOTE_TO_SAYING, 
     ADD_SAYING_RECORDING, 
     SET_CURRENT_RECORDING,
-    GET_TAGS 
+    GET_TAGS,
+    GET_SAYINGS_FROM_TAG
 } from './types'
 // import { SELECTED_SAYING } from './types'
 // import { CREATE_SAYING } from './types'
@@ -95,6 +96,18 @@ export const getSayingTags = (saying) => {
                 dispatch({
                     type: GET_TAGS,
                     tags
+                })
+            })
+    }
+}
+
+export const getAllSayingsFromTag = (id) => {
+    return dispatch => {
+        SayingsAdapter.getSayingsFromTag(id)
+            .then(sayings => {
+                dispatch({
+                    type: GET_SAYINGS_FROM_TAG,
+                    sayings
                 })
             })
     }

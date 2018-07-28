@@ -46,4 +46,9 @@ export class SayingsAdapter {
             .then(resp => resp.json())    
     }
 
+    static getSayingsFromTag(id) {
+        return fetch(`${baseURL}/tags/${id}/sayings`)
+            .then(resp => resp.json())
+    }
+
 }

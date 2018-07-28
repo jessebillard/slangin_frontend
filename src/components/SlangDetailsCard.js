@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, Button, Modal, Icon, Header, Accordion, Label } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
-import { addVoteToSaying, getSayingRecording, getSayingTags } from '../actions/getSayings';
+import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
 
@@ -39,17 +39,24 @@ class SlangDetailsCard extends React.Component {
         this.props.recording.play()
     }
 
-    tagButtons = () => {
-        //make buttons for each tag
-        // console.log(this.props.tags)
-        this.props.tags.map(tag => {
-            return <Button content={tag.name}/>
-        })
+    // tagButtons = () => {
+    //     this.props.tags.map(tag => {
+    //         return <Button key={tag.id} content={tag.name}/>
+    //     })
+    // }
+
+    handleTagClick = (e) => {
+        // debugger
+        // will send a request to the backend to get all sayings this tag has
+        // the button should either use Link from react-router or do a history.push
+        const tag = this.props.tags.find(tag => tag.name === e.target.innerText)
+        // debugger;
+        this.props.getAllSayingsFromTag(tag.id)
     }
 
     render() {
         const { saying } = this.props   
-        console.log(this.props.tags)  
+        // console.log(this.props.tags)  
         
         // const panel = {
         //     key: "panel",
@@ -101,8 +108,9 @@ class SlangDetailsCard extends React.Component {
                             </div>
                         </Card.Content>
                     </Card>
+                    <h3>Location Tags</h3>
                     {this.props.tags.map(tag => {
-                        return <Button key={tag.id} content={tag.name}/>
+                        return <Button key={tag.id} onClick={this.handleTagClick} content={tag.name}/>
                     })}
                 {/* </Transition.Group> */}
             </div>
@@ -121,4 +129,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { addVoteToSaying, getSayingRecording, getSayingTags } )(SlangDetailsCard)
+export default connect(mapStateToProps, { 
+    addVoteToSaying, 
+    getSayingRecording, 
+    getSayingTags, 
+    getAllSayingsFromTag
+} )(SlangDetailsCard)
