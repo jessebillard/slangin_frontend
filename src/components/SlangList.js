@@ -32,11 +32,11 @@ const SlangList = (props) => {
 
     return (
         <div className="margin-top">
-            <h1>What they're saying in the {props.region} region</h1>
+        {props.region ? <h1>What they're saying in the {props.region} region</h1> : <h1>Sayings using {props.tag.name} tag</h1>}
                 <Grid columns={4} divided >
-                    <Grid.Row>
-                        {sortedSayings().map(saying => 
-                        <Grid.Column key={saying.id}>
+                    <Grid.Row key={"row 1"}>
+                        {sortedSayings().map((saying, index) => 
+                        <Grid.Column key={index}>
                             <Link to={`/slang/${saying.id}`} key={saying.id} >
                                 <SlangTitleCard key={saying.id} saying={saying} />
                             </Link>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Input, Button, Icon } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { createSaying, addSayingRecording } from '../actions/getSayings';
+import OnEvent from 'react-onevent';
 import Pizzicato from 'pizzicato'
 import { ReactMic } from 'react-mic';
 
@@ -14,7 +15,9 @@ class NewSlangForm extends React.Component {
             title: '',
             description: '',
             region: '',
-            record: false           
+            record: false,
+            tagsInputValue: '',
+            tags: []           
         }
     }
 
@@ -48,6 +51,7 @@ class NewSlangForm extends React.Component {
         sayingData.append("title", this.state.title)
         sayingData.append("description", this.state.description)
         sayingData.append("region", this.state.region)
+        sayingData.append("tags", this.state.tags)
         sayingData.append("recording", this.props.blob)
 
         this.props.createSaying(sayingData)
@@ -79,9 +83,46 @@ class NewSlangForm extends React.Component {
         });
     }
 
-    playback = () => {
-        // debugger;
+    playback = () => {        
         this.props.recording.play()
+    }
+
+    addTag = (e) => {
+        if (e.target.value === ' ') return;
+        // trim the fat off the value
+        const trimmedTag = `#${e.target.value.trim()}`
+        // check to see if it exists in the array already with indexOf
+            // if it doesn't exist already, call updatTag
+        if (this.state.tags.indexOf(trimmedTag) < 0) {
+            let newTags = [...this.state.tags, trimmedTag]
+            this.updateTags(newTags)
+        }
+        // call updateTagValue again passing an empty string to reset the input
+        this.updateTagValue('')
+    }
+
+    updateTagValue = (value) => {
+        if(value === ' ') {
+            return;
+        } else {
+            this.setState({
+                tagsInputValue: value
+            })
+        }
+    }
+
+    updateTags = (tags) => {
+        this.setState({
+            tags
+        }, () => console.log(this.state))
+    }
+
+    removeTag = (removeTag) => {
+        const filteredTags = this.state.tags.filter(tag => {
+            return tag !== removeTag
+        })
+        // debugger;
+        this.updateTags(filteredTags)
     }
 
     render() {   
@@ -115,6 +156,31 @@ class NewSlangForm extends React.Component {
                             label='Description' 
                             placeholder='Description in context...' 
                         />
+                        <div>
+                            <div>
+                                {this.state.tags.map((tag, index) => {
+                                    return <Button
+                                                icon 
+                                                labelPosition="right"                                                
+                                                key={index}  
+                                                onClick={() => this.removeTag(tag)}
+                                            >
+                                            {tag}
+                                            <Icon name="delete" />
+                                            </Button>
+                                })}
+                            </div>
+                            <h3>Add location hashtags</h3>
+                            <OnEvent space={this.addTag}>
+                                <Input 
+                                    value={this.state.tagsInputValue} 
+                                    onChange={(e) => this.updateTagValue(e.target.value)} 
+                                    placeholder="press space to enter"
+                                    icon="hashtag"
+                                    iconPosition="left"
+                                />                                
+                            </OnEvent>
+                        </div>
                         <br />
                         <h4>Record</h4>
                         <br />

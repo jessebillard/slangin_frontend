@@ -5,6 +5,9 @@ export default (state = {
     selectedSaying: '',
     currentBlob: '',
     currentRecording: '',
+    currentTags: [],
+    sayingsBelongingToTag: [],
+    currentTag: ''
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
@@ -49,6 +52,23 @@ export default (state = {
                 ...state,
                 currentBlob: action.recording.blob,
                 currentRecording: action.recording.sound
+            }
+        case 'GET_TAGS':
+            // debugger;
+            return {
+                ...state,
+                currentTags: action.tags
+            }
+        case 'GET_SAYINGS_FROM_TAG':
+            // debugger;
+            return {
+                ...state,
+                sayingsBelongingToTag: action.sayings
+            }
+        case 'UPDATE_CURRENT_TAG':
+            return {
+                ...state,
+                currentTag: action.tag
             }
         default:
             return state

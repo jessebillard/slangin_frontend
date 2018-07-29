@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Card, Button, Modal, Icon, Header } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+import { Card, Button, Modal, Icon, Header, Accordion, Label } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
-import { addVoteToSaying, getSayingRecording } from '../actions/getSayings';
+import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag, updateCurrentTag } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
 
@@ -29,7 +29,10 @@ class SlangDetailsCard extends React.Component {
         })
     }
 
-    componentDidMount() {        
+    componentDidMount() {   
+        // fetch the tags from the backend!  
+        this.props.getSayingTags(this.props.saying.title)
+
         this.props.getSayingRecording(this.props.saying)
     }
 
@@ -55,11 +58,38 @@ class SlangDetailsCard extends React.Component {
                 return ''
         }
     }
+    // tagButtons = () => {
+    //     this.props.tags.map(tag => {
+    //         return <Button key={tag.id} content={tag.name}/>
+    //     })
+    // }
+
+    handleTagClick = (e) => {
+        // debugger
+        // will send a request to the backend to get all sayings this tag has
+        // the button should either use Link from react-router or do a history.push
+        const tag = this.props.tags.find(tag => tag.name === e.target.innerText)
+        
+        this.props.getAllSayingsFromTag(tag.id)
+        
+        this.props.updateCurrentTag(tag)
+
+    }
 
     render() {
-        console.log(this.props)
-        const { saying } = this.props
-            
+        const { saying } = this.props   
+        console.log(this.props.recording)  
+        
+        // const panel = {
+        //     key: "panel",
+        //     title: {
+        //         content: <Label content="See location tags" />
+        //     },
+        //     content: {
+        //         content: this.tagButtons()
+        //     }
+        // }
+
         return (
             <div className="margin-top" id="slang-details-card">
                 {/* <Transition.Group animation="fade" duration={700}> */}
@@ -98,10 +128,13 @@ class SlangDetailsCard extends React.Component {
                                     </Button>
                                     </Modal.Actions>   
                                 </Modal>                    
-                                 
                             </div>
                         </Card.Content>
                     </Card>
+                    <h3>Location Tags</h3>
+                    {this.props.tags.map(tag => {
+                        return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
+                    })}
                 {/* </Transition.Group> */}
                 <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
                         {saying.region.name}
@@ -110,7 +143,6 @@ class SlangDetailsCard extends React.Component {
                 </h3>
             </div>
         )
-
     }
 }
 
@@ -119,8 +151,15 @@ class SlangDetailsCard extends React.Component {
 const mapStateToProps = (state) => {
     return {
         saying: state.selectedSaying,
-        recording: state.sound
+        recording: state.sound,
+        tags: state.currentTags
     }
 }
 
-export default connect(mapStateToProps, { addVoteToSaying, getSayingRecording } )(SlangDetailsCard)
+export default withRouter(connect(mapStateToProps, { 
+    addVoteToSaying, 
+    getSayingRecording, 
+    getSayingTags, 
+    getAllSayingsFromTag,
+    updateCurrentTag
+} )(SlangDetailsCard))

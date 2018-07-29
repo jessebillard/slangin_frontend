@@ -20,6 +20,7 @@ class App extends Component {
                   <NavBar />
                   <Switch>
                     <Route path={'/slang/:sayingId'} component={SlangDetailsCard} />
+                    <Route path="/tags" component={SlangContainer} />
                     <Route path="/regions" component={SlangContainer} />
                     <Route path="/newslang" component={NewSlangForm} />
                     <Route path="/" component={HomePage} />
