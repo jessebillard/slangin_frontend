@@ -15,8 +15,6 @@ import { store } from './store.js';
 // import SlangDetailsCard from './components/SlangDetailsCard';
 // import SlangTitleCard from './components/SlangTitleCard';
 
-// console.log(store.getState())
-
 ReactDOM.render(    
     <Provider store={store}>
         <App />

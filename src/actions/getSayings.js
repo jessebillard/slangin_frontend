@@ -6,7 +6,8 @@ import { GET_SAYINGS,
     ADD_SAYING_RECORDING, 
     SET_CURRENT_RECORDING,
     GET_TAGS,
-    GET_SAYINGS_FROM_TAG
+    GET_SAYINGS_FROM_TAG,
+    UPDATE_CURRENT_TAG
 } from './types'
 // import { SELECTED_SAYING } from './types'
 // import { CREATE_SAYING } from './types'
@@ -110,5 +111,12 @@ export const getAllSayingsFromTag = (id) => {
                     sayings
                 })
             })
+    }
+}
+
+export const updateCurrentTag = (tag) => {
+    return {
+        type: UPDATE_CURRENT_TAG,
+        tag
     }
 }

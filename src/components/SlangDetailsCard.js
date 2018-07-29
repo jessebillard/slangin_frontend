@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Card, Button, Modal, Icon, Header, Accordion, Label } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
-import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag } from '../actions/getSayings';
+import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag, updateCurrentTag } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
 
@@ -50,13 +51,16 @@ class SlangDetailsCard extends React.Component {
         // will send a request to the backend to get all sayings this tag has
         // the button should either use Link from react-router or do a history.push
         const tag = this.props.tags.find(tag => tag.name === e.target.innerText)
-        // debugger;
+        
         this.props.getAllSayingsFromTag(tag.id)
+        
+        this.props.updateCurrentTag(tag)
+
     }
 
     render() {
         const { saying } = this.props   
-        // console.log(this.props.tags)  
+        console.log(this.props.recording)  
         
         // const panel = {
         //     key: "panel",
@@ -110,12 +114,11 @@ class SlangDetailsCard extends React.Component {
                     </Card>
                     <h3>Location Tags</h3>
                     {this.props.tags.map(tag => {
-                        return <Button key={tag.id} onClick={this.handleTagClick} content={tag.name}/>
+                        return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
                     })}
                 {/* </Transition.Group> */}
             </div>
         )
-
     }
 }
 
@@ -129,9 +132,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { 
+export default withRouter(connect(mapStateToProps, { 
     addVoteToSaying, 
     getSayingRecording, 
     getSayingTags, 
-    getAllSayingsFromTag
-} )(SlangDetailsCard)
+    getAllSayingsFromTag,
+    updateCurrentTag
+} )(SlangDetailsCard))
