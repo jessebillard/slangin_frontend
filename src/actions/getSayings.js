@@ -7,7 +7,8 @@ import { GET_SAYINGS,
     SET_CURRENT_RECORDING,
     GET_TAGS,
     GET_SAYINGS_FROM_TAG,
-    UPDATE_CURRENT_TAG
+    UPDATE_CURRENT_TAG,
+    UPDATE_CONTAINER_PATH
 } from './types'
 // import { SELECTED_SAYING } from './types'
 // import { CREATE_SAYING } from './types'
@@ -118,5 +119,12 @@ export const updateCurrentTag = (tag) => {
     return {
         type: UPDATE_CURRENT_TAG,
         tag
+    }
+}
+
+export const updateContainerPath = (path) => {
+    return {
+        type: UPDATE_CONTAINER_PATH,
+        path
     }
 }

@@ -2,8 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import SlangList from '../components/SlangList';
+import { updateContainerPath } from '../actions/getSayings'
 
 class SlangContainer extends React.Component {
+
+    componentDidMount() {
+        // update redux state to have the containerPath
+        this.props.updateContainerPath(this.props.history.location.pathname)
+        // console.log(this.props.history.location.pathname)
+    }
 
     render() {
         return (
@@ -33,4 +40,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(SlangContainer))
+export default withRouter(connect(mapStateToProps, { updateContainerPath })(SlangContainer))

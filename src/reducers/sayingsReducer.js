@@ -7,7 +7,8 @@ export default (state = {
     currentRecording: '',
     currentTags: [],
     sayingsBelongingToTag: [],
-    currentTag: ''
+    currentTag: '',
+    containerPath: ''
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
@@ -69,6 +70,12 @@ export default (state = {
             return {
                 ...state,
                 currentTag: action.tag
+            }
+        case 'UPDATE_CONTAINER_PATH':
+            // debugger;
+            return {
+                ...state,
+                containerPath: action.path
             }
         default:
             return state

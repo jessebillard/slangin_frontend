@@ -12,7 +12,8 @@ class SlangDetailsCard extends React.Component {
         super()
 
         this.state = {
-            modalOpen: false            
+            modalOpen: false,
+            prevPath: ''            
         }
     }
 
@@ -31,9 +32,17 @@ class SlangDetailsCard extends React.Component {
 
     componentDidMount() {   
         // fetch the tags from the backend!  
+        // debugger;
+        // console.log(this.props)
         this.props.getSayingTags(this.props.saying.title)
 
         this.props.getSayingRecording(this.props.saying)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location !== this.props.location) {
+            this.setState({ prevPath: this.props.location })
+          }
     }
 
     playRecording = () => {
@@ -76,9 +85,17 @@ class SlangDetailsCard extends React.Component {
 
     }
 
+    renderBackBtn = () => {
+        return <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
+                { this.props.path.includes("tags") ? this.props.currentTag.name : this.props.saying.region.name}
+            </Button>                                         
+            { this.props.path.includes("tags") ? 'tag' : 'region...'}
+        </h3>
+    }
+
     render() {
         const { saying } = this.props   
-        console.log(this.props.recording)  
+        // console.log(this.props.history)  
         
         // const panel = {
         //     key: "panel",
@@ -136,11 +153,12 @@ class SlangDetailsCard extends React.Component {
                         return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
                     })}
                 {/* </Transition.Group> */}
-                <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
-                        {saying.region.name}
+                {this.renderBackBtn()}
+                {/* <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
+                        { this.props.path.includes("tags") ? this.props.currentTag : saying.region.name}
                     </Button>                                         
-                    region...
-                </h3>
+                    { this.props.path.includes("tags") ? '' : 'region...'}
+                </h3> */}
             </div>
         )
     }
@@ -152,7 +170,9 @@ const mapStateToProps = (state) => {
     return {
         saying: state.selectedSaying,
         recording: state.sound,
-        tags: state.currentTags
+        tags: state.currentTags,
+        currentTag: state.currentTag,
+        path: state.containerPath
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import createBrowserHistory from 'history/createBrowserHistory'
 import './App.css';
 import { connect } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
