@@ -56,13 +56,13 @@ class SlangDetailsCard extends React.Component {
     btnColor = () => {
         switch (this.props.saying.region.name) {
             case "western":
-                return "orange"
+                return "red"
             case "midwest":
-                return "olive"
+                return "blue"
             case "southern":
-                return "teal"
+                return "green"
             case "northeast":
-                return "violet"
+                return "orange"
             default:
                 return ''
         }
