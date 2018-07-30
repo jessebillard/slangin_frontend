@@ -26,7 +26,7 @@ class App extends Component {
                     <Route path="/newslang" component={NewSlangForm} />
                     <Route path="/" component={HomePage} />
                   </Switch>
-                  <AddSlangButton />
+                  {/* <AddSlangButton /> */}
               </div>            
           </React.Fragment>
         </Router>

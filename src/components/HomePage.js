@@ -17,8 +17,7 @@ class HomePage extends React.Component {
         this.props.getAllRegions()
     }
 
-    clickRegion = (region) => {
-        console.log(region._id)
+    clickRegion = (region) => {        
 
         if (region._id.includes("western")) {
             // const region = e.target.innerText
@@ -67,7 +66,7 @@ class HomePage extends React.Component {
 
         return (
             <div className="margin-top">
-                <h1>Slangin'</h1>
+                
                 <br />
                 <div id="map">
                     <ImageMapper src={SlanginMap} map={map} width={1200} height={800} 
@@ -80,7 +79,7 @@ class HomePage extends React.Component {
                     />
                 </div>
                 <br/>
-                <Link to="/regions/western" >
+                {/* <Link to="/regions/western" >
                     <Button onClick={this.handleClick} content='Western' color="orange" />            
                 </Link>
                 <Link to="/regions/midwest" >
@@ -91,7 +90,7 @@ class HomePage extends React.Component {
                 </Link>
                 <Link to="/regions/northeast" >
                     <Button onClick={this.handleClick} content='Northeast' color="violet" />                
-                </Link>
+                </Link> */}
             </div>
         )
     }
