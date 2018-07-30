@@ -8,6 +8,7 @@
     "pizzicato": "^0.6.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-image-mapper": "0.0.7",
     "react-mic": "^11.0.0",
     "react-onevent": "^1.0.1",
     "react-redux": "^5.0.7",
