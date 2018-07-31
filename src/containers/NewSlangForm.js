@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Icon } from 'semantic-ui-react';
+import { Form, Input, Button, Icon, Transition } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { createSaying, addSayingRecording } from '../actions/getSayings';
@@ -134,6 +134,7 @@ class NewSlangForm extends React.Component {
         ]
         return (
             <div className="margin-top">
+                <Transition visible={true} transitionOnMount={true}>
                 <Container>
                     <Header as='h2'>Make Some Slang</Header>
                     <Form>
@@ -199,6 +200,7 @@ class NewSlangForm extends React.Component {
                                 basic
                                 positive
                                 circular 
+                                inverted
                                 onClick={this.startRecording}
                                 content="Start" 
                             />
@@ -237,6 +239,7 @@ class NewSlangForm extends React.Component {
                         </div>
                     </section> */}
                 </Container>
+                </Transition>
             </div>
         )
     }

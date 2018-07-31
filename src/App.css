@@ -1,5 +1,6 @@
 .main {
   text-align: center;
+  margin-top: 75px;
 }
 
 .margin-top {
@@ -35,3 +36,9 @@
 #map {
   text-align: center;
 }
+
+.modal-about {
+  margin-top: 200px;
+  /* margin-left: 200px; */
+}
+

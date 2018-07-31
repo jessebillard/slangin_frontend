@@ -1,7 +1,7 @@
 import React from 'react';
 import SlangTitleCard from './SlangTitleCard';
 import { Link } from 'react-router-dom';
-import { Grid, List } from 'semantic-ui-react'
+import { List, Transition } from 'semantic-ui-react'
 
 const SlangList = (props) => {
 
@@ -48,8 +48,9 @@ const SlangList = (props) => {
     // }
 
     return (
+        <Transition visible={true} transitionOnMount={true}>
         <div className="margin-top">
-        {props.region ? <h2>What they're saying in the {props.region} region</h2> : <h2>Sayings using {props.tag.name} tag</h2>}
+            {props.region ? <h2>What they're saying in the {props.region} region</h2> : <h2>Sayings using {props.tag.name} tag</h2>}
                 <List horizontal size="large" celled={true}>
                     {sortedSayings().map((saying, index) => 
                         <List.Item key={index}>
@@ -58,25 +59,9 @@ const SlangList = (props) => {
                             </Link>
                         </List.Item>
                     )}
-                </List>
-                
-                {/* <Grid columns={4} divided >                    
-                    {sortedSayings().map((saying, index) => 
-                        <Grid.Row key={"row 1"}>
-                            <Grid.Column key={index}>
-                                <Link to={`/slang/${saying.id}`} key={saying.id} >
-                                    <SlangTitleCard key={saying.id} saying={saying} />
-                                </Link>
-                            </Grid.Column>
-                        </Grid.Row>
-                    )}
-                </Grid> */}
-                {/* {sayings.map(saying => 
-                    <Link to={`/slang/${saying.id}`} key={saying.id} >
-                        <SlangTitleCard key={saying.id} saying={saying} />
-                    </Link>
-                )} */}
+                </List>                
         </div>
+        </Transition>
     )
 }
 

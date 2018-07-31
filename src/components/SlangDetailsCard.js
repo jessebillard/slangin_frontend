@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Card, Button, Modal, Icon, Header, Divider, Segment } from 'semantic-ui-react';
-// transition not working for some reason!
-// import { Transition } from 'semantic-ui-react';
+import { Card, Button, Modal, Icon, Header, Divider, Segment, Transition } from 'semantic-ui-react';
 import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag, updateCurrentTag, clearCurrentTag } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
@@ -118,70 +116,60 @@ class SlangDetailsCard extends React.Component {
         }
 
         return (
-            <div className="margin-top" id="slang-details-card">
-                {/* <Transition.Group animation="fade" duration={700}> */}
-                    <Card color={color()}>
-                        <Card.Content header={`"${saying.title}"`} />
-                        <Card.Content description={saying.description} />
-                        <Card.Content extra>
-                            <div className='ui two buttons'>
-                                <Button inverted 
-                                    onClick={() => this.playRecording(saying)} 
-                                    color="blue" 
-                                    circular 
-                                    icon="play circle outline" 
-                                />    
-                                <Modal
-                                    trigger={<Button 
-                                        inverted 
-                                        onClick={() => this.handleVote(saying)} 
-                                        color="orange" 
+            <Transition visible={true} transitionOnMount={true}>            
+                <div className="margin-top" id="slang-details-card">                
+                        <Card color={color()}>
+                            <Card.Content header={`"${saying.title}"`} />
+                            <Card.Content description={saying.description} />
+                            <Card.Content extra>
+                                <div className='ui two buttons'>
+                                    <Button inverted 
+                                        onClick={() => this.playRecording(saying)} 
+                                        color="blue" 
                                         circular 
-                                        content="I say this too!" 
-                                    /> }
-                                    dimmer={"blurring"}
-                                    open={this.state.modalOpen}
-                                    onClose={this.handleClose}
-                                    basic
-                                    size="tiny"                                                   
-                                >
-                                 <Header id="header" icon='browser' content="Slangin'" />
-                                    <Modal.Content id="modal-content">
-                                        <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
-                                    </Modal.Content>
-                                    <Modal.Actions>
-                                    <Button id="modal-btn" color='green' onClick={this.handleClose} inverted>
-                                        <Icon name='checkmark' /> Sick Yeah!
-                                    </Button>
-                                    </Modal.Actions>   
-                                </Modal>                    
-                            </div>
-                        </Card.Content>
-                    </Card>
-                    <h3>Location Tags</h3>
-                    {this.props.tags.map(tag => {
-                        return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
-                    })}
-                {/* </Transition.Group> */}
-                {/* {this.renderBackBtn()} */}
-                <br />
-                <h3>More from the...</h3>
-                <Segment padded>  
-                    { this.props.currentTag ? this.backTagBtn() : ''}                  
-                    {/* <Button primary fluid>
-                        {this.props.currentTag.name} tag
-                    </Button>
-                    <Divider horizontal>Or</Divider> */}
-                    <Button onClick={this.onBackClick} color={"blue"} secondary fluid>
-                        {this.props.saying.region.name} region
-                    </Button>
-                </Segment>
-                {/* <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
-                        { this.props.path.includes("tags") ? this.props.currentTag : saying.region.name}
-                    </Button>                                         
-                    { this.props.path.includes("tags") ? '' : 'region...'}
-                </h3> */}
-            </div>
+                                        icon="play circle outline" 
+                                        />    
+                                    <Modal
+                                        trigger={<Button 
+                                            inverted 
+                                            onClick={() => this.handleVote(saying)} 
+                                            color="orange" 
+                                            circular 
+                                            content="I say this too!" 
+                                            /> }
+                                            dimmer={"inverted"}
+                                            open={this.state.modalOpen}
+                                            onClose={this.handleClose}
+                                            basic
+                                            size="tiny"                                                   
+                                            >
+                                    <Header id="header" icon='heart' content="Slangin'" />
+                                        <Modal.Content id="modal-content">
+                                            <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
+                                        </Modal.Content>
+                                        <Modal.Actions>
+                                        <Button id="modal-btn" color='green' onClick={this.handleClose} inverted>
+                                            <Icon name='checkmark' /> Sick Yeah!
+                                        </Button>
+                                        </Modal.Actions>   
+                                    </Modal>                    
+                                </div>
+                            </Card.Content>
+                        </Card>
+                        <h3>Location Tags</h3>
+                        {this.props.tags.map(tag => {
+                            return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
+                        })}
+                    <br />
+                    <h3>More from the...</h3>
+                    <Segment padded>  
+                        { this.props.currentTag ? this.backTagBtn() : ''}                  
+                        <Button onClick={this.onBackClick} color={"blue"} secondary fluid>
+                            {this.props.saying.region.name} region
+                        </Button>
+                    </Segment>
+                </div>
+            </Transition>
         )
     }
 }

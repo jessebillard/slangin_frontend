@@ -10,20 +10,21 @@ import AddSlangButton from './components/AddSlangButton';
 import NewSlangForm from './containers/NewSlangForm';
 import SlangContainer from './containers/SlangContainer'
 import SlangDetailsCard from './components/SlangDetailsCard';
-
+import AboutPage from './components/aboutPage';
 
 class App extends Component {
   render() {
     return (
         <Router>
           <React.Fragment>            
-              <div className="main">
                   <NavBar />
+              <div className="main">
                   <Switch>
                     <Route path={'/slang/:sayingId'} component={SlangDetailsCard} />
                     <Route path="/tags" component={SlangContainer} />
                     <Route path="/regions" component={SlangContainer} />
                     <Route path="/newslang" component={NewSlangForm} />
+                    <Route path="/about" component={AboutPage} />
                     <Route path="/" component={HomePage} />
                   </Switch>
                   {/* <AddSlangButton /> */}
