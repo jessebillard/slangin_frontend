@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Link } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getSayings, getAllRegions, clearCurrentTag } from '../actions/getSayings'
@@ -20,8 +19,7 @@ class HomePage extends React.Component {
 
     clickRegion = (region) => {        
 
-        if (region._id.includes("western")) {
-            // const region = e.target.innerText
+        if (region._id.includes("western")) {            
             this.props.getSayings("western")
             this.props.history.push("/regions/western")
         } else if (region._id.includes("midwest")) {
@@ -36,21 +34,21 @@ class HomePage extends React.Component {
         }
     }
 
-    load = () => {
+    // load = () => {
 
-    }
+    // }
 
-    enterRegion = (region) => {
+    // enterRegion = (region) => {
 
-    }
+    // }
 
-    leaveRegion = (region) => {
+    // leaveRegion = (region) => {
 
-    }
+    // }
 
-    clickedOutside = (event) => {
+    // clickedOutside = (event) => {
 
-    }
+    // }
 
     render() {
 
@@ -64,7 +62,6 @@ class HomePage extends React.Component {
             ]
           }
 
-
         return (
             <div className="margin-top">
                 <br />
@@ -72,27 +69,14 @@ class HomePage extends React.Component {
                 <div id="map">
                     <ImageMapper src={SlanginMap} map={map} width={1200} height={800} 
                         fillColor="rgba(0, 0, 0, 0.25)"
-                        onLoad={() => this.load()}
+                        // onLoad={() => this.load()}
                         onClick={region => this.clickRegion(region)}
-                        onMouseEnter={region => this.enterRegion(region)}
-                        onMouseLeave={region => this.leaveRegion(region)}
-                        onImageClick={event => this.clickedOutside(event)}
+                        // onMouseEnter={region => this.enterRegion(region)}
+                        // onMouseLeave={region => this.leaveRegion(region)}
+                        // onImageClick={event => this.clickedOutside(event)}
                         />
                 </div>
                 </Transition>
-                <br/>
-                {/* <Link to="/regions/western" >
-                    <Button onClick={this.handleClick} content='Western' color="orange" />            
-                    </Link>
-                    <Link to="/regions/midwest" >
-                    <Button onClick={this.handleClick} content='Midwest' color="olive" />                
-                    </Link>
-                    <Link to="/regions/southern" >
-                    <Button onClick={this.handleClick} content='Southern' color="teal"/>                
-                    </Link>
-                    <Link to="/regions/northeast" >
-                    <Button onClick={this.handleClick} content='Northeast' color="violet" />                
-                </Link> */}
             </div>
         )
     }

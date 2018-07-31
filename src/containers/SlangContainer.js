@@ -21,12 +21,10 @@ class SlangContainer extends React.Component {
             <div>
                 <Switch>    
                     {/* route for rendering a slang list based of tag not region, so don't pass it a region  */}
-                    <Route path={`/tags/:tagname`} render={() => {
-                        // console.log("tag path")
+                    <Route path={`/tags/:tagname`} render={() => {                        
                         return <SlangList tag={this.props.tag} sayings={this.props.tagSayings} />
                     }}/>
-                    <Route path={`/regions/${this.props.region}`} render={() => {
-                        // console.log("region path")
+                    <Route path={`/regions/${this.props.region}`} render={() => {                        
                         return <SlangList region={this.props.region} sayings={this.props.sayings} />
                     }} />
                 </Switch>                

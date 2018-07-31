@@ -1,11 +1,16 @@
 import React from 'react'
-import { Transition } from 'semantic-ui-react';
+import { Transition, Container, Header } from 'semantic-ui-react';
 
 const AboutPage = () => {
     return (
         <div className="modal-about">
             <Transition visible={true} transitionOnMount={true}>
-                <h1>about this</h1>
+                <Container text>
+                    <Header as="h1">About</Header>
+                    <p>
+                        Built for chronicling the favorite regionalisms, pronunciations and slang throughout the American regions.
+                    </p>
+                </Container>
             </Transition>
         </div>
     )
