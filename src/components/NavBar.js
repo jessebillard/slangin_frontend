@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Icon, Button } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -8,15 +8,17 @@ const NavBar = () => {
             <Menu fixed="top" widths={3}>
                 <Menu.Item name='home'>
                     <Link to='/'>
-                        <Icon name='home' />
+                        <Icon size="big" name='home' />
                     </Link>
                 </Menu.Item>
                 <Menu.Item>
-                    Slangin'
+                    <h1>
+                        Slangin'
+                    </h1>
                 </Menu.Item>                
                 <Menu.Item name='Add Slang'>
                     <Link to="/newslang">
-                        <Icon name='plus circle' />            
+                        <Icon size="big" name='plus circle' />            
                     </Link>
                     Add Slang
                 </Menu.Item>            

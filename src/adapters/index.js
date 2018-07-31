@@ -38,11 +38,8 @@ export class SayingsAdapter {
             })
     }
 
-    static getTags(saying) {
-        // const options = {
-        //     body: JSON.stringify(saying)
-        // }
-        return fetch(`${baseURL}/tags/${saying}`)
+    static getTags(id) {
+        return fetch(`${baseURL}/tags/saying/${id}`)
             .then(resp => resp.json())    
     }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import SlangList from '../components/SlangList';
-import { updateContainerPath } from '../actions/getSayings'
+import { updateContainerPath, clearCurrentTag } from '../actions/getSayings'
 
 class SlangContainer extends React.Component {
 
@@ -10,6 +10,10 @@ class SlangContainer extends React.Component {
         // update redux state to have the containerPath
         this.props.updateContainerPath(this.props.history.location.pathname)
         // console.log(this.props.history.location.pathname)
+        // this.props.clearCurrentTag()
+        window.onpopstate = () => {
+            this.props.clearCurrentTag()
+        }
     }
 
     render() {
@@ -40,4 +44,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, { updateContainerPath })(SlangContainer))
+export default withRouter(connect(mapStateToProps, { updateContainerPath, clearCurrentTag })(SlangContainer))

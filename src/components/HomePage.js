@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react'
+// import { Link } from 'react-router-dom';
+// import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { getSayings, getAllRegions } from '../actions/getSayings'
+import { getSayings, getAllRegions, clearCurrentTag } from '../actions/getSayings'
 import ImageMapper from 'react-image-mapper';
 import SlanginMap from '../images/SlanginMapFinal.png'
 
@@ -15,6 +15,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.props.getAllRegions()
+        this.props.clearCurrentTag()
     }
 
     clickRegion = (region) => {        
@@ -98,4 +99,4 @@ class HomePage extends React.Component {
 
 
 
-export default connect(null, { getAllRegions, getSayings })(HomePage)
+export default connect(null, { getAllRegions, getSayings, clearCurrentTag })(HomePage)

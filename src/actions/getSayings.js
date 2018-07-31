@@ -8,7 +8,8 @@ import { GET_SAYINGS,
     GET_TAGS,
     GET_SAYINGS_FROM_TAG,
     UPDATE_CURRENT_TAG,
-    UPDATE_CONTAINER_PATH
+    UPDATE_CONTAINER_PATH,
+    CLEAR_CURRENT_TAG
 } from './types'
 // import { SELECTED_SAYING } from './types'
 // import { CREATE_SAYING } from './types'
@@ -91,9 +92,9 @@ export const addSayingRecording = (recording) => {
     }
 }
 
-export const getSayingTags = (saying) => {
+export const getSayingTags = (id) => {
     return dispatch => {
-        SayingsAdapter.getTags(saying)
+        SayingsAdapter.getTags(id)
             .then(tags => {
                 dispatch({
                     type: GET_TAGS,
@@ -126,5 +127,11 @@ export const updateContainerPath = (path) => {
     return {
         type: UPDATE_CONTAINER_PATH,
         path
+    }
+}
+
+export const clearCurrentTag = () => {
+    return {
+        type: CLEAR_CURRENT_TAG
     }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Card, Button, Modal, Icon, Header, Accordion, Label } from 'semantic-ui-react';
+import { Card, Button, Modal, Icon, Header, Divider, Segment } from 'semantic-ui-react';
 // transition not working for some reason!
 // import { Transition } from 'semantic-ui-react';
-import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag, updateCurrentTag } from '../actions/getSayings';
+import { addVoteToSaying, getSayingRecording, getSayingTags, getAllSayingsFromTag, updateCurrentTag, clearCurrentTag } from '../actions/getSayings';
 
 class SlangDetailsCard extends React.Component {
 
@@ -31,11 +31,7 @@ class SlangDetailsCard extends React.Component {
     }
 
     componentDidMount() {   
-        // fetch the tags from the backend!  
-        // debugger;
-        // console.log(this.props)
-        this.props.getSayingTags(this.props.saying.title)
-
+        this.props.getSayingTags(this.props.saying.id)
         this.props.getSayingRecording(this.props.saying)
     }
 
@@ -49,8 +45,14 @@ class SlangDetailsCard extends React.Component {
         this.props.recording.play()
     }
 
-    onBackClick = () => {
-        this.props.history.goBack()
+    onBackClick = (e) => {
+        // debugger;
+        if (e.target.innerText.includes("region")) {
+            this.props.clearCurrentTag()
+            this.props.history.push(`/regions/${this.props.saying.region.name}`)            
+        } else {
+            this.props.history.push(`/tags/${this.props.currentTag.name.substr(1)}`)
+        }
     }
 
     btnColor = () => {
@@ -67,11 +69,6 @@ class SlangDetailsCard extends React.Component {
                 return ''
         }
     }
-    // tagButtons = () => {
-    //     this.props.tags.map(tag => {
-    //         return <Button key={tag.id} content={tag.name}/>
-    //     })
-    // }
 
     handleTagClick = (e) => {
         // debugger
@@ -93,24 +90,37 @@ class SlangDetailsCard extends React.Component {
         </h3>
     }
 
+    backTagBtn = () => {
+        return <div>
+            <Button primary fluid onClick={this.onBackClick}>
+                {this.props.currentTag.name} tag
+            </Button>
+            <Divider horizontal>Or</Divider>
+        </div>
+    }
+
     render() {
         const { saying } = this.props   
-        // console.log(this.props.history)  
-        
-        // const panel = {
-        //     key: "panel",
-        //     title: {
-        //         content: <Label content="See location tags" />
-        //     },
-        //     content: {
-        //         content: this.tagButtons()
-        //     }
-        // }
+
+        const color = () => {
+            switch (saying.region.name) {
+                case "western":
+                    return "red"
+                case "midwest":
+                    return "blue"
+                case "southern":
+                    return "green"
+                case "northeast":
+                    return "orange"
+                default:
+                    return "blue"
+            }
+        }
 
         return (
             <div className="margin-top" id="slang-details-card">
                 {/* <Transition.Group animation="fade" duration={700}> */}
-                    <Card>
+                    <Card color={color()}>
                         <Card.Content header={`"${saying.title}"`} />
                         <Card.Content description={saying.description} />
                         <Card.Content extra>
@@ -153,7 +163,19 @@ class SlangDetailsCard extends React.Component {
                         return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
                     })}
                 {/* </Transition.Group> */}
-                {this.renderBackBtn()}
+                {/* {this.renderBackBtn()} */}
+                <br />
+                <h3>More from the...</h3>
+                <Segment padded>  
+                    { this.props.currentTag ? this.backTagBtn() : ''}                  
+                    {/* <Button primary fluid>
+                        {this.props.currentTag.name} tag
+                    </Button>
+                    <Divider horizontal>Or</Divider> */}
+                    <Button onClick={this.onBackClick} color={"blue"} secondary fluid>
+                        {this.props.saying.region.name} region
+                    </Button>
+                </Segment>
                 {/* <h3>More from the <Button onClick={this.onBackClick} color={this.btnColor()} compact size="mini">
                         { this.props.path.includes("tags") ? this.props.currentTag : saying.region.name}
                     </Button>                                         
@@ -180,6 +202,7 @@ export default withRouter(connect(mapStateToProps, {
     addVoteToSaying, 
     getSayingRecording, 
     getSayingTags, 
+    clearCurrentTag,
     getAllSayingsFromTag,
     updateCurrentTag
 } )(SlangDetailsCard))

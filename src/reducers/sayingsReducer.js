@@ -77,6 +77,11 @@ export default (state = {
                 ...state,
                 containerPath: action.path
             }
+        case 'CLEAR_CURRENT_TAG':
+            return {
+                ...state,
+                currentTag: ''
+            }
         default:
             return state
     }
