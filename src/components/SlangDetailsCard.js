@@ -142,17 +142,20 @@ class SlangDetailsCard extends React.Component {
                                             open={this.state.modalOpen}
                                             onClose={this.handleClose}
                                             basic
-                                            size="tiny"                                                   
-                                            >
-                                    <Header id="header" icon='heart' content="Slangin'" />
-                                        <Modal.Content id="modal-content">
-                                            <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
-                                        </Modal.Content>
-                                        <Modal.Actions>
-                                        <Button id="modal-btn" color='green' onClick={this.handleClose} inverted>
-                                            <Icon name='checkmark' /> Sick Yeah!
-                                        </Button>
-                                        </Modal.Actions>   
+                                            size="fullscreen"                                                   
+                                    >
+                                        <div id="modal-content">
+                                            <Header icon='heart' content="Slangin'" />
+                                            <Modal.Content>
+                                                <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
+                                            </Modal.Content>
+                                            <br />
+                                            <Modal.Actions>
+                                                <Button color='green' onClick={this.handleClose} inverted>
+                                                    <Icon name='checkmark' /> Sick Yeah!
+                                                </Button>
+                                            </Modal.Actions>   
+                                        </div>
                                     </Modal>                    
                                 </div>
                             </Card.Content>
