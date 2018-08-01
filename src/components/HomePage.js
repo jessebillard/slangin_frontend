@@ -62,10 +62,8 @@ class HomePage extends React.Component {
             ]
           }
 
-        return (
-            <div className="margin-top">
-                <br />
-                <Transition visible={true} transitionOnMount={true}>
+        return (                        
+            <Transition visible={true} transitionOnMount={true}>
                 <div id="map">
                     <ImageMapper src={SlanginMap} map={map} width={1200} height={800} 
                         fillColor="rgba(0, 0, 0, 0.25)"
@@ -76,8 +74,7 @@ class HomePage extends React.Component {
                         // onImageClick={event => this.clickedOutside(event)}
                         />
                 </div>
-                </Transition>
-            </div>
+            </Transition>            
         )
     }
 }

@@ -4,7 +4,7 @@
 }
 
 .margin-top {
-  margin: 75px;
+  margin: 200px;
 }
 
 #slang-button {
@@ -12,8 +12,12 @@
 }
 
 #slang-details-card {
+  margin-left: 90px;
+}
+
+#slang-details-container {
   margin: 1rem auto;
-  margin-top: 75px;
+  margin-top: 200px;
   width: 25%;
 }
 
@@ -35,6 +39,8 @@
 
 #map {
   text-align: center;
+  margin-top: 125px;
+  margin-left: 350px;
 }
 
 .modal-about {

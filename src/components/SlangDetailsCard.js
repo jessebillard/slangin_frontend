@@ -117,7 +117,8 @@ class SlangDetailsCard extends React.Component {
 
         return (
             <Transition visible={true} transitionOnMount={true}>            
-                <div className="margin-top" id="slang-details-card">                
+                <div id="slang-details-container">  
+                    <div id="slang-details-card">
                         <Card color={color()}>
                             <Card.Content header={`"${saying.title}"`} />
                             <Card.Content description={saying.description} />
@@ -156,6 +157,8 @@ class SlangDetailsCard extends React.Component {
                                 </div>
                             </Card.Content>
                         </Card>
+                        
+                    </div>              
                         <h3>Location Tags</h3>
                         {this.props.tags.map(tag => {
                             return <Link key={tag.id} to={`/tags/${tag.name.substr(1)}`}><Button key={tag.id} onClick={this.handleTagClick} content={tag.name} /></Link>
