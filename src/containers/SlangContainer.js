@@ -17,7 +17,9 @@ class SlangContainer extends React.Component {
                     return ''
                     // this.props.clearCurrentTag()                    
                 case "/about":
-                    return ''                
+                    return ''   
+                default:
+                    return ''             
                     // this.props.clearCurrentTag()
             }
         }

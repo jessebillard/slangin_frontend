@@ -151,19 +151,17 @@ class SlangDetailsCard extends React.Component {
                                             centered
                                             style={inlineStyle.modal}
                                             id="form-modal"                                                  
-                                    >
-                                        
-                                            <Header icon='heart' content="Slangin'" />
-                                            <Modal.Content>
-                                                <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
-                                            </Modal.Content>
-                                            <br />
-                                            <Modal.Actions>
-                                                <Button color='green' onClick={this.handleClose} inverted>
-                                                    <Icon name='checkmark' /> Sick Yeah!
-                                                </Button>
-                                            </Modal.Actions>   
-                                        
+                                    >                                        
+                                    <Header icon='heart' content="Slangin'" />
+                                    <Modal.Content>
+                                        <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
+                                    </Modal.Content>
+                                    <br />
+                                    <Modal.Actions>
+                                        <Button color='green' onClick={this.handleClose} inverted>
+                                            <Icon name='checkmark' /> Sick Yeah!
+                                        </Button>
+                                    </Modal.Actions>                                           
                                     </Modal>                    
                                 </div>
                             </Card.Content>

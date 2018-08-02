@@ -23,8 +23,7 @@ class NewSlangForm extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // debugger;
+    componentDidMount() {        
         this.props.setPreviousPath(window.location.pathname)
     }
 
@@ -55,34 +54,33 @@ class NewSlangForm extends React.Component {
 
         // check to see if title, description, region and recording have been filled out
         if (!this.state.title) {
-            console.log("please enter a title")
+            
             this.setState({
                 modalOpen: true,
                 modalMessage: "title"
             })
-            // update the modal state to open
-            // update the modal message
+            
         } else if (!this.state.description) {
-            console.log("please enter a description"); 
+            
             this.setState({
                 modalOpen: true,
                 modalMessage: "description"
             })           
+
         } else if (!this.state.region) {
-            console.log("please select a region");   
+              
             this.setState({
                 modalOpen: true,
                 modalMessage: "region"
             })         
+
         } else if (!this.props.blob) {
-            console.log("please make a recording")
+            
             this.setState({
                 modalOpen: true,
                 modalMessage: "recording"
             })
-        } else {
-            console.log("submission goody");
-            
+        } else {                        
             // make a formData object out of the current state and currentBlob on props
             const sayingData = new FormData()
             sayingData.append("title", this.state.title)
@@ -108,8 +106,7 @@ class NewSlangForm extends React.Component {
         });
       }
     
-    stopRecording = () => {
-        // debugger;
+    stopRecording = () => {        
          this.setState({
            record: false
          });
@@ -238,13 +235,13 @@ class NewSlangForm extends React.Component {
                             </OnEvent>
                         </div>
                         <Modal dimmer={"inverted"} id="form-modal" style={inlineStyle.modal} centered size="mini" open={this.state.modalOpen}>                                    
-                                <Modal.Header>Whoops!</Modal.Header>
-                                <Modal.Content>
-                                    <p>Please enter a {this.state.modalMessage}</p>
-                                </Modal.Content>
-                                <Modal.Actions>                                    
-                                    <Button positive onClick={this.closeModal} icon='checkmark' labelPosition='right' content='Got it!' />
-                                </Modal.Actions>                                    
+                            <Modal.Header>Whoops!</Modal.Header>
+                            <Modal.Content>
+                                <p>Please enter a {this.state.modalMessage}</p>
+                            </Modal.Content>
+                            <Modal.Actions>                                    
+                                <Button positive onClick={this.closeModal} icon='checkmark' labelPosition='right' content='Got it!' />
+                            </Modal.Actions>                                    
                         </Modal>                                                    
                         <br />
                         <h4>Record</h4>
