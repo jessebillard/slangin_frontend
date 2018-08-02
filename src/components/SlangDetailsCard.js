@@ -100,6 +100,12 @@ class SlangDetailsCard extends React.Component {
     render() {
         const { saying } = this.props   
 
+        const inlineStyle = {
+            modal : {
+              marginTop: '118px !important',              
+            }
+          };
+
         const color = () => {
             switch (saying.region.name) {
                 case "western":
@@ -140,11 +146,13 @@ class SlangDetailsCard extends React.Component {
                                             /> }
                                             dimmer={"inverted"}
                                             open={this.state.modalOpen}
-                                            onClose={this.handleClose}
-                                            basic
-                                            size="fullscreen"                                                   
+                                            onClose={this.handleClose}                                            
+                                            size="mini" 
+                                            centered
+                                            style={inlineStyle.modal}
+                                            id="form-modal"                                                  
                                     >
-                                        <div id="modal-content">
+                                        
                                             <Header icon='heart' content="Slangin'" />
                                             <Modal.Content>
                                                 <h3>You and {saying.votes} other people are slangin' this phrase!</h3>
@@ -155,7 +163,7 @@ class SlangDetailsCard extends React.Component {
                                                     <Icon name='checkmark' /> Sick Yeah!
                                                 </Button>
                                             </Modal.Actions>   
-                                        </div>
+                                        
                                     </Modal>                    
                                 </div>
                             </Card.Content>

@@ -29,16 +29,22 @@
   margin-left: 350px;
 }  */
 
-#modal-content {
+#vote-modal {
   text-align: center;
   width: 25%;
   margin-top: 115px;
   margin-left: 728px;
 }
 
-/* #modal-btn {
-  margin-left: 200px;
-} */
+#form-modal {
+  margin-left: 728px;
+  margin-top: 118px;
+}
+
+#form-modal-margin-top {
+  margin-top: 118px;
+}
+
 
 #map {
   text-align: center;

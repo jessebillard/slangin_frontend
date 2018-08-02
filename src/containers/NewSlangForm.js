@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input, Button, Icon, Transition } from 'semantic-ui-react';
+import { Form, Input, Button, Icon, Transition, Modal } from 'semantic-ui-react';
 import { Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { createSaying, addSayingRecording } from '../actions/getSayings';
+import { createSaying, addSayingRecording, setPreviousPath } from '../actions/getSayings';
 import OnEvent from 'react-onevent';
 import Pizzicato from 'pizzicato'
 import { ReactMic } from 'react-mic';
@@ -17,8 +17,15 @@ class NewSlangForm extends React.Component {
             region: '',
             record: false,
             tagsInputValue: '',
-            tags: []           
+            tags: [],
+            modalOpen: false,
+            modalMessage: ''        
         }
+    }
+
+    componentDidMount() {
+        // debugger;
+        this.props.setPreviousPath(window.location.pathname)
     }
 
     handleChange = (e) => {
@@ -46,18 +53,52 @@ class NewSlangForm extends React.Component {
         // apparently it works fine without it
         // e.preventDefault()
 
-        // make a formData object out of the current state and currentBlob on props
-        const sayingData = new FormData()
-        sayingData.append("title", this.state.title)
-        sayingData.append("description", this.state.description)
-        sayingData.append("region", this.state.region)
-        sayingData.append("tags", this.state.tags)
-        sayingData.append("recording", this.props.blob)
-
-        this.props.createSaying(sayingData)
-            .then(() => {
-                this.props.history.push(`/regions/${this.state.region}`)
+        // check to see if title, description, region and recording have been filled out
+        if (!this.state.title) {
+            console.log("please enter a title")
+            this.setState({
+                modalOpen: true,
+                modalMessage: "title"
             })
+            // update the modal state to open
+            // update the modal message
+        } else if (!this.state.description) {
+            console.log("please enter a description"); 
+            this.setState({
+                modalOpen: true,
+                modalMessage: "description"
+            })           
+        } else if (!this.state.region) {
+            console.log("please select a region");   
+            this.setState({
+                modalOpen: true,
+                modalMessage: "region"
+            })         
+        } else if (!this.props.blob) {
+            console.log("please make a recording")
+            this.setState({
+                modalOpen: true,
+                modalMessage: "recording"
+            })
+        } else {
+            console.log("submission goody");
+            
+            // make a formData object out of the current state and currentBlob on props
+            const sayingData = new FormData()
+            sayingData.append("title", this.state.title)
+            sayingData.append("description", this.state.description)
+            sayingData.append("region", this.state.region)
+            sayingData.append("tags", this.state.tags)
+            sayingData.append("recording", this.props.blob)
+    
+            this.props.createSaying(sayingData)
+                .then(() => {
+                    this.props.history.push(`/regions/${this.state.region}`)
+                })
+            
+        }
+
+
     }
 
     startRecording = () => {
@@ -114,7 +155,7 @@ class NewSlangForm extends React.Component {
     updateTags = (tags) => {
         this.setState({
             tags
-        }, () => console.log(this.state))
+        })
     }
 
     removeTag = (removeTag) => {
@@ -125,7 +166,18 @@ class NewSlangForm extends React.Component {
         this.updateTags(filteredTags)
     }
 
+    closeModal = () => {
+        this.setState({
+            modalOpen: false
+        })
+    }
+
     render() {   
+        const inlineStyle = {
+            modal : {
+              marginTop: '118px !important',              
+            }
+          };
         const regionOptions = [
             {text: "Western", value: "Western"}, 
             {text: "Midwest", value: "Midwest"}, 
@@ -141,18 +193,21 @@ class NewSlangForm extends React.Component {
                         <Form.Group widths="equal">
                             <Form.Input onChange={this.handleChange} 
                                 value={this.state.title} 
+                                // required
                                 name='title' 
                                 label='Title' 
                                 placeholder='Title'
                             />
                             <Form.Select onChange={this.handleChange} 
                                 label="Region" 
+                                // required
                                 placeholder="Select Region" 
                                 options={regionOptions} 
                             />
                         </Form.Group>
                         <Form.TextArea onChange={this.handleChange} 
                             value={this.state.description} 
+                            // required
                             name="description" 
                             label='Description' 
                             placeholder='Description in context...' 
@@ -182,6 +237,15 @@ class NewSlangForm extends React.Component {
                                 />                                
                             </OnEvent>
                         </div>
+                        <Modal dimmer={"inverted"} id="form-modal" style={inlineStyle.modal} centered size="mini" open={this.state.modalOpen}>                                    
+                                <Modal.Header>Whoops!</Modal.Header>
+                                <Modal.Content>
+                                    <p>Please enter a {this.state.modalMessage}</p>
+                                </Modal.Content>
+                                <Modal.Actions>                                    
+                                    <Button positive onClick={this.closeModal} icon='checkmark' labelPosition='right' content='Got it!' />
+                                </Modal.Actions>                                    
+                        </Modal>                                                    
                         <br />
                         <h4>Record</h4>
                         <br />
@@ -196,8 +260,7 @@ class NewSlangForm extends React.Component {
                         <br/>
                         <Form.Group widths="equal">
                             <Form.Button
-                                size="large"
-                                basic
+                                size="large"                                
                                 positive
                                 circular 
                                 inverted
@@ -205,16 +268,14 @@ class NewSlangForm extends React.Component {
                                 content="Start" 
                             />
                             <Form.Button 
-                                size="large"
-                                basic
+                                size="large"                                
                                 negative
                                 circular
                                 onClick={this.stopRecording}
                                 content="Stop" 
                             />
                             <Form.Button 
-                                size="large"
-                                basic 
+                                size="large"                                 
                                 color='blue'
                                 circular
                                 onClick={this.playback}
@@ -252,4 +313,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { createSaying, addSayingRecording })(NewSlangForm)
+export default connect(mapStateToProps, { createSaying, addSayingRecording, setPreviousPath })(NewSlangForm)

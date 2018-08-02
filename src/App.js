@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
 import HomePage from './components/HomePage';
 import NavBar from './components/NavBar';
-import AddSlangButton from './components/AddSlangButton';
 import NewSlangForm from './containers/NewSlangForm';
 import SlangContainer from './containers/SlangContainer'
 import SlangDetailsCard from './components/SlangDetailsCard';

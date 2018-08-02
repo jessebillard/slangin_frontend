@@ -8,7 +8,8 @@ export default (state = {
     currentTags: [],
     sayingsBelongingToTag: [],
     currentTag: '',
-    containerPath: ''
+    containerPath: '',
+    previousPath: ''
 }, action) => {
     switch (action.type) {
         case 'GET_SAYINGS':
@@ -81,6 +82,12 @@ export default (state = {
             return {
                 ...state,
                 currentTag: ''
+            }
+        case 'SET_PREVIOUS_PATH':
+            // debugger;
+            return {
+                ...state,
+                previousPath: action.path
             }
         default:
             return state

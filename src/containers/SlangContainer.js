@@ -9,10 +9,17 @@ class SlangContainer extends React.Component {
     componentDidMount() {
         // update redux state to have the containerPath
         this.props.updateContainerPath(this.props.history.location.pathname)
-        // console.log(this.props.history.location.pathname)
-        // this.props.clearCurrentTag()
+
         window.onpopstate = () => {
-            this.props.clearCurrentTag()
+            console.log("hit the pop state event")
+            switch (this.props.prevPath) {
+                case "/newslang":
+                    return ''
+                    // this.props.clearCurrentTag()                    
+                case "/about":
+                    return ''                
+                    // this.props.clearCurrentTag()
+            }
         }
     }
 
@@ -38,7 +45,8 @@ const mapStateToProps = (state) => {
         sayings: state.sayings,
         region: state.selectedRegion,
         tag: state.currentTag,
-        tagSayings: state.sayingsBelongingToTag
+        tagSayings: state.sayingsBelongingToTag,
+        prevPath: state.previousPath
     }
 }
 

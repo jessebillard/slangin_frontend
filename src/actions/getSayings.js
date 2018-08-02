@@ -9,7 +9,8 @@ import { GET_SAYINGS,
     GET_SAYINGS_FROM_TAG,
     UPDATE_CURRENT_TAG,
     UPDATE_CONTAINER_PATH,
-    CLEAR_CURRENT_TAG
+    CLEAR_CURRENT_TAG,
+    SET_PREVIOUS_PATH
 } from './types'
 import { SayingsAdapter } from '../adapters/index'
 import Pizzicato from 'pizzicato'
@@ -127,5 +128,12 @@ export const updateContainerPath = (path) => {
 export const clearCurrentTag = () => {
     return {
         type: CLEAR_CURRENT_TAG
+    }
+}
+
+export const setPreviousPath = (path) => {
+    return {
+        type: SET_PREVIOUS_PATH,
+        path
     }
 }
