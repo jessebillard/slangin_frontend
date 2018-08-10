@@ -12,7 +12,8 @@
 }
 
 #slang-details-card {
-  margin-left: 90px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 #slang-details-container {
@@ -32,12 +33,12 @@
 #vote-modal {
   text-align: center;
   width: 25%;
-  margin-top: 115px;
-  margin-left: 728px;
+  margin-top: 50px;
+  margin-left: 460px;
 }
 
 #form-modal {
-  margin-left: 728px;
+  margin-left: 444px;
   margin-top: 118px;
 }
 
@@ -49,7 +50,7 @@
 #map {
   text-align: center;
   margin-top: 125px;
-  margin-left: 350px;
+  margin-left: 34px;
 }
 
 .modal-about {

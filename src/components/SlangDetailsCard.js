@@ -150,7 +150,7 @@ class SlangDetailsCard extends React.Component {
                                             size="mini" 
                                             centered
                                             style={inlineStyle.modal}
-                                            id="form-modal"                                                  
+                                            id="vote-modal"                                                  
                                     >                                        
                                     <Header icon='heart' content="Slangin'" />
                                     <Modal.Content>
