@@ -9,8 +9,8 @@ import { ReactMic } from 'react-mic';
 
 class NewSlangForm extends React.Component {
     
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
             title: '',
             description: '',
@@ -27,8 +27,8 @@ class NewSlangForm extends React.Component {
         this.props.setPreviousPath(window.location.pathname)
     }
 
+    // form methods
     handleChange = (e) => {
-
         if (e.target.tagName === 'DIV') {
             this.setState({
                 region: e.target.firstElementChild.innerText.toLowerCase()
@@ -53,29 +53,22 @@ class NewSlangForm extends React.Component {
         // e.preventDefault()
 
         // check to see if title, description, region and recording have been filled out
-        if (!this.state.title) {
-            
+        if (!this.state.title) {            
             this.setState({
                 modalOpen: true,
                 modalMessage: "title"
-            })
-            
-        } else if (!this.state.description) {
-            
+            })            
+        } else if (!this.state.description) {            
             this.setState({
                 modalOpen: true,
                 modalMessage: "description"
             })           
-
-        } else if (!this.state.region) {
-              
+        } else if (!this.state.region) {              
             this.setState({
                 modalOpen: true,
                 modalMessage: "region"
             })         
-
-        } else if (!this.props.blob) {
-            
+        } else if (!this.props.blob) {            
             this.setState({
                 modalOpen: true,
                 modalMessage: "recording"
@@ -99,8 +92,8 @@ class NewSlangForm extends React.Component {
 
     }
 
-    startRecording = () => {
-        // debugger;
+    // recording methods
+    startRecording = () => {    
         this.setState({
           record: !this.state.record
         });
@@ -117,23 +110,28 @@ class NewSlangForm extends React.Component {
             source: 'file',
             options: { path: [recordedBlob.blobURL] }
         }, () => {
-            this.props.addSayingRecording({sound: sound, blob: recordedBlob.blob})
+            this.props.addSayingRecording({sound: sound, blob: recordedBlob.blob})            
         });
     }
 
-    playback = () => {        
-        this.props.recording.play()
+    playback = () => { 
+        if (this.props.recording) {
+            this.props.recording.play()
+        }       
     }
 
+    // tag methods
     addTag = (e) => {
-        if (e.target.value === ' ') return;
-        // trim the fat off the value
+        
+        if (e.target.value === '') return;  
+
         const trimmedTag = `#${e.target.value.trim()}`
-        // check to see if it exists in the array already with indexOf
-            // if it doesn't exist already, call updatTag
-        if (this.state.tags.indexOf(trimmedTag) < 0) {
+
+        if (!this.state.tags.includes(trimmedTag)) {
             let newTags = [...this.state.tags, trimmedTag]
-            this.updateTags(newTags)
+            this.setState({
+                tags: newTags
+            })
         }
         // call updateTagValue again passing an empty string to reset the input
         this.updateTagValue('')
@@ -149,27 +147,24 @@ class NewSlangForm extends React.Component {
         }
     }
 
-    updateTags = (tags) => {
-        this.setState({
-            tags
-        })
-    }
-
-    removeTag = (removeTag) => {
+    removeTag = (removeTag) => {                      
         const filteredTags = this.state.tags.filter(tag => {
             return tag !== removeTag
-        })
-        // debugger;
-        this.updateTags(filteredTags)
+        })        
+        this.setState({
+            tags: filteredTags
+        })    
     }
 
-    closeModal = () => {
+    // modal
+    closeModal = () => {       
         this.setState({
-            modalOpen: false
-        })
+            modalOpen: false       
+        })        
     }
 
     render() {   
+
         const inlineStyle = {
             modal : {
               marginTop: '118px !important',              
@@ -181,6 +176,7 @@ class NewSlangForm extends React.Component {
             {text: "Southern", value: "Southern"},
             {text: "Northeast", value: "Northeast"}
         ]
+
         return (
             <div className="margin-top">
                 <Transition visible={true} transitionOnMount={true}>
@@ -189,22 +185,19 @@ class NewSlangForm extends React.Component {
                     <Form>
                         <Form.Group widths="equal">
                             <Form.Input onChange={this.handleChange} 
-                                value={this.state.title} 
-                                // required
+                                value={this.state.title}                                 
                                 name='title' 
                                 label='Title' 
                                 placeholder='Title'
                             />
                             <Form.Select onChange={this.handleChange} 
-                                label="Region" 
-                                // required
+                                label="Region"                                 
                                 placeholder="Select Region" 
                                 options={regionOptions} 
                             />
                         </Form.Group>
                         <Form.TextArea onChange={this.handleChange} 
-                            value={this.state.description} 
-                            // required
+                            value={this.state.description}                             
                             name="description" 
                             label='Description' 
                             placeholder='Description in context...' 
@@ -216,7 +209,7 @@ class NewSlangForm extends React.Component {
                                                 icon 
                                                 labelPosition="right"                                                
                                                 key={index}  
-                                                onClick={() => this.removeTag(tag)}
+                                                onClick={(e) => this.removeTag(tag)}
                                             >
                                             {tag}
                                             <Icon name="delete" />
@@ -278,24 +271,10 @@ class NewSlangForm extends React.Component {
                                 onClick={this.playback}
                                 content="Playback" 
                             />
-
                         </Form.Group>
-                        {/* <Form.Field 
-                            onClick={this.startRecording}
-                            control="input" 
-                            type="button" 
-                            label="Start"
-                        />  */}
                         <br/>
                         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>                                                
                     </Form>
-                    {/* <section className="main-controls">
-                        <div id="buttons">
-                            <button onClick={this.startRecording} className="record">Start</button>
-                            <button onClick={this.stopRecording} className="stop">Stop</button>
-                            <button onClick={this.playback}>Playback</button>
-                        </div>
-                    </section> */}
                 </Container>
                 </Transition>
             </div>
