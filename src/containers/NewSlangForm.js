@@ -46,11 +46,6 @@ class NewSlangForm extends React.Component {
     }
 
     handleSubmit = (e) => {
-        // console.log(this.state)
-        // debugger;
-        // will I still need this preventDefault if the submit is coming from a button click and not the "onSubmit" event?
-        // apparently it works fine without it
-        // e.preventDefault()
 
         // check to see if title, description, region and recording have been filled out
         if (!this.state.title) {            

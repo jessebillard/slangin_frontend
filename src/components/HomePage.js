@@ -34,22 +34,6 @@ class HomePage extends React.Component {
         }
     }
 
-    // load = () => {
-
-    // }
-
-    // enterRegion = (region) => {
-
-    // }
-
-    // leaveRegion = (region) => {
-
-    // }
-
-    // clickedOutside = (event) => {
-
-    // }
-
     render() {
 
         const map = {
@@ -66,13 +50,9 @@ class HomePage extends React.Component {
             <Transition visible={true} transitionOnMount={true}>
                 <div id="map">
                     <ImageMapper src={SlanginMap} map={map} width={1200} height={800} 
-                        fillColor="rgba(0, 0, 0, 0.25)"
-                        // onLoad={() => this.load()}
+                        fillColor="rgba(0, 0, 0, 0.25)"                      
                         onClick={region => this.clickRegion(region)}
-                        // onMouseEnter={region => this.enterRegion(region)}
-                        // onMouseLeave={region => this.leaveRegion(region)}
-                        // onImageClick={event => this.clickedOutside(event)}
-                        />
+                    />
                 </div>
             </Transition>            
         )

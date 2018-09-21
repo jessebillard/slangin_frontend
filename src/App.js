@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import createBrowserHistory from 'history/createBrowserHistory'
 import './App.css';
 import { connect } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
@@ -25,8 +24,7 @@ class App extends Component {
                     <Route path="/newslang" component={NewSlangForm} />
                     <Route path="/about" component={AboutPage} />
                     <Route path="/" component={HomePage} />
-                  </Switch>
-                  {/* <AddSlangButton /> */}
+                  </Switch>                  
               </div>            
           </React.Fragment>
         </Router>
@@ -34,7 +32,6 @@ class App extends Component {
   }
 }
 
-//connect this to the store so that the SlangContainer route path can be dynamically set?
 const mapStateToProps = (state) => {
   return {
     region: state.selectedRegion
